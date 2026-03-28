@@ -10,4 +10,5 @@ test('for initial commit', async ({page}) => {
     const baseUrl = process.env.BASE_URL
     await page.goto(baseUrl)
     await expect(page.getByText('DailyDeals')).toBeVisible()
+    await expect(page.locator('.theme-toggle')).toBeVisible()
 })
