@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Deals - Amazing Offers Every Day</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">🎁 DailyDeals</h1>
+                <div class="header-actions">
+                    <!-- Theme Toggle -->
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        🌙
+                    </button>
+                    
+                    <!-- Auth Buttons (hidden until checked) -->
+                    <div id="authButtons" style="display: none;">
+                        <a href="login.html" class="btn btn-secondary" style="margin-right: 0.5rem;">Sign In</a>
+                        <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                    </div>
+                    
+                    <!-- User Menu (hidden until logged in) -->
+                    <div id="userMenu" class="user-menu" style="display: none;">
+                        <button class="user-button" id="userMenuBtn">
+                            <span>👤</span>
+                            <span id="userName">User</span>
+                        </button>
+                        <div class="user-dropdown" id="userDropdown">
+                            <div class="user-dropdown-item logout" id="logoutBtn">
+                                Logout
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button id="cartBtn" class="cart-btn" style="margin-left: 0.5rem;">
+                        🛒 Cart (<span id="cartCount">0</span>)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="filters-section">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search deals..." 
+                    aria-label="Search deals"
+                >
+            </div>
+            
+            <div class="filter-controls">
+                <select id="categoryFilter" aria-label="Filter by category">
+                    <option value="">All Categories</option>
+                    <option value="Wellness">Wellness</option>
+                    <option value="Food">Food</option>
+                    <option value="Activities">Activities</option>
+                    <option value="Services">Services</option>
+                    <option value="Entertainment">Entertainment</option>
+                </select>
+
+                <select id="sortSelect" aria-label="Sort deals">
+                    <option value="newest">Newest First</option>
+                    <option value="discount">Highest Discount</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="expiring">Expiring Soon</option>
+                </select>
+            </div>
+        </section>
+
+        <section id="dealsGrid" class="deals-grid">
+            <div class="loading">Loading deals...</div>
+        </section>
+    </main>
+
+    <!-- Deal Modal -->
+    <div id="dealModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close cart">&times;</button>
+            <h2 id="cartTitle">Shopping Cart</h2>
+            <div id="cartBody"></div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close checkout">&times;</button>
+            <h2 id="checkoutTitle">Checkout</h2>
+            <div id="checkoutBody"></div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Amazon Cognito Identity SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@6.3.7/dist/amazon-cognito-identity.min.js"></script>
+    
+    <script src="auth.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

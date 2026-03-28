@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - DailyDeals</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" style="text-decoration: none; color: white;">
+                    <h1 class="logo">🎁 DailyDeals</h1>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="checkout-page">
+            <h1>Checkout</h1>
+            
+            <div class="checkout-layout">
+                <!-- Order Summary -->
+                <div class="order-summary-section">
+                    <h2>Order Summary</h2>
+                    <div id="orderItems" class="order-items"></div>
+                    
+                    <div class="cart-summary">
+                        <div class="cart-summary-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotalAmount">$0.00</span>
+                        </div>
+                        <div id="discountRow" class="cart-summary-row" style="color: #48bb78; display: none;">
+                            <span>Discount:</span>
+                            <span id="discountAmount">-$0.00</span>
+                        </div>
+                        <div class="cart-summary-row total">
+                            <span>Total:</span>
+                            <span id="totalAmount">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Checkout Form -->
+                <div class="checkout-form-section">
+                    <h2>Payment Information</h2>
+                    
+                    <!-- Voucher Section -->
+                    <div class="voucher-section">
+                        <h3>Have a voucher code?</h3>
+                        <div class="voucher-input-group">
+                            <input type="text" id="voucherInput" placeholder="Enter code">
+                            <button class="btn btn-secondary" id="applyVoucherBtn">Apply</button>
+                        </div>
+                        <div id="voucherMessage"></div>
+                    </div>
+
+                    <!-- Customer Details Form -->
+                    <form id="checkoutForm" class="checkout-form">
+                        <div class="form-group">
+                            <label for="customerName">Full Name *</label>
+                            <input type="text" id="customerName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customerEmail">Email *</label>
+                            <input type="email" id="customerEmail" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customerAddress">Shipping Address *</label>
+                            <input type="text" id="customerAddress" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="customerCity">City *</label>
+                            <input type="text" id="customerCity" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="customerState">State/Province *</label>
+                                <input type="text" id="customerState" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="customerZip">ZIP/Postal Code *</label>
+                                <input type="text" id="customerZip" required>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Payment Information</h3>
+
+                        <div class="form-group">
+                            <label for="cardNumber">Card Number *</label>
+                            <input 
+                                type="text" 
+                                id="cardNumber" 
+                                required 
+                                placeholder="1234 5678 9012 3456"
+                                maxlength="19"
+                                autocomplete="cc-number"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cardName">Cardholder Name *</label>
+                            <input 
+                                type="text" 
+                                id="cardName" 
+                                required 
+                                placeholder="Name on card"
+                                autocomplete="cc-name"
+                            >
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cardExpiry">Expiry Date *</label>
+                                <input 
+                                    type="text" 
+                                    id="cardExpiry" 
+                                    required 
+                                    placeholder="MM/YY"
+                                    maxlength="5"
+                                    autocomplete="cc-exp"
+                                >
+                            </div>
+                            <div class="form-group">
+                                <label for="cardCVV">CVV *</label>
+                                <input 
+                                    type="text" 
+                                    id="cardCVV" 
+                                    required 
+                                    placeholder="123"
+                                    maxlength="3"
+                                    autocomplete="cc-csc"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="checkout-actions">
+                            <a href="index.html" class="btn btn-secondary">Back to Shopping</a>
+                            <button type="submit" class="btn btn-primary">Complete Purchase</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Amazon Cognito Identity SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@6.3.7/dist/amazon-cognito-identity.min.js"></script>
+    
+    <!-- Theme Persistence -->
+    <script>
+        // Apply saved theme immediately (before page renders)
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+    
+    <script src="auth.js"></script>
+    <script src="checkout.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed - DailyDeals</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" style="text-decoration: none; color: white;">
+                    <h1 class="logo">🎁 DailyDeals</h1>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="confirmation-page">
+            <div class="confirmation-content">
+                <div class="success-icon-large">✅</div>
+                <h1>Order Confirmed!</h1>
+                <p class="subtitle" id="thankYouMessage">Thank you for your purchase!</p>
+                
+                <div class="order-details">
+                    <h2>Order Details</h2>
+                    
+                    <div class="order-details-row">
+                        <strong>Order ID:</strong>
+                        <span id="orderId">-</span>
+                    </div>
+                    
+                    <div class="order-details-row">
+                        <strong>Email:</strong>
+                        <span id="customerEmail">-</span>
+                    </div>
+                    
+                    <div class="order-details-row">
+                        <strong>Order Date:</strong>
+                        <span id="orderDate">-</span>
+                    </div>
+                    
+                    <div id="orderItemsList" class="order-items-list"></div>
+                    
+                    <div class="order-details-row">
+                        <strong>Subtotal:</strong>
+                        <span id="orderSubtotal">$0.00</span>
+                    </div>
+                    
+                    <div class="order-details-row" id="discountRow" style="display: none; color: #48bb78;">
+                        <strong>Discount:</strong>
+                        <span id="orderDiscount">-$0.00</span>
+                    </div>
+                    
+                    <div class="order-details-row">
+                        <strong>Total Paid:</strong>
+                        <span id="orderTotal" style="font-size: 1.25rem; color: #667eea;">$0.00</span>
+                    </div>
+                </div>
+                
+                <p style="color: #718096; margin-top: 1.5rem;">
+                    A confirmation email has been sent to <strong id="confirmationEmail">your email</strong>
+                </p>
+                
+                <div class="confirmation-actions">
+                    <a href="index.html" class="btn btn-primary">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Theme Persistence -->
+    <script>
+        // Apply saved theme immediately (before page renders)
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <script src="confirmation.js"></script>
+</body>
+</html>
