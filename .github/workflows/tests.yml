@@ -30,9 +30,11 @@ jobs:
           TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
           TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
       
-      - name: Generate Allure report
+      - name: Generate Allure Report
         if: always()
-        run: npx allure generate allure-results -o allure-report --clean
+        run: |
+          rm -rf allure-report
+          npx allure generate allure-results -o allure-report
       
       - name: Publish Allure report
         if: always()
