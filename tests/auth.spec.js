@@ -11,4 +11,5 @@ test('for initial commit', async ({page}) => {
     await page.goto(baseUrl)
     await expect(page.getByText('DailyDeals')).toBeVisible()
     await expect(page.locator('.theme-toggle')).toBeVisible()
+    await expect(page.getByText('Sign In')).toBeVisible()
 })
