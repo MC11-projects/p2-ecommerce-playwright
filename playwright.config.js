@@ -52,16 +52,16 @@ export default defineConfig({
     },
 
     {
-    name: 'chromium-no-auth',
-    use: { ...devices['Desktop Chrome'] },
-    testMatch: /.*auth-.*\.spec\.js/
+      name: 'chromium-no-auth',
+      use: { ...devices['Desktop Chrome'] },
+      testMatch: /.*auth-(login|signup)\.spec\.js/ 
     },
 
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'], storageState: '.auth/user.json' },
       dependencies: ['setup'],
-      testIgnore: /.*auth-login\.spec\.js/ 
+      testIgnore: /.*auth-(login|signup)\.spec\.js/
     },
     
 
