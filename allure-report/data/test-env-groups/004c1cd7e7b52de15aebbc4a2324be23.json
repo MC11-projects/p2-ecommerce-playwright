@@ -1,1 +1,1 @@
-{"id":"004c1cd7e7b52de15aebbc4a2324be23","fullName":"auth-logout.spec.js:22:9","name":"Direct checkout URL redirects to login after logout","status":"passed","testResultsByEnv":{"default":"4b8000523746e49c435b27a7c5070e68"}}
+{"id":"004c1cd7e7b52de15aebbc4a2324be23","fullName":"auth-logout.spec.js:24:9","name":"Direct checkout URL redirects to login after logout","status":"broken","testResultsByEnv":{"default":"cebdf1b05230abda1b15cc4bcc6a5b63"}}

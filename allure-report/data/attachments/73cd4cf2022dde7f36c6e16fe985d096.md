@@ -1,0 +1,41 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - link "🎁 DailyDeals" [ref=e5] [cursor=pointer]:
+      - /url: index.html
+      - heading "🎁 DailyDeals" [level=1] [ref=e6]
+  - main [ref=e7]:
+    - generic [ref=e9]:
+      - heading "Create Account" [level=1] [ref=e10]
+      - paragraph [ref=e11]: Join DailyDeals and start saving!
+      - generic [ref=e12]:
+        - generic [ref=e13]:
+          - generic [ref=e14]: Full Name
+          - textbox "Full Name" [ref=e15]:
+            - /placeholder: John Doe
+        - generic [ref=e16]:
+          - generic [ref=e17]: Email
+          - textbox "Email" [ref=e18]:
+            - /placeholder: your@email.com
+        - generic [ref=e19]:
+          - generic [ref=e20]: Password
+          - generic [ref=e21]:
+            - textbox "Password" [ref=e22]:
+              - /placeholder: Minimum 8 characters
+              - text: Password123!
+            - button "Show password" [active] [ref=e23] [cursor=pointer]: 🙈
+          - text: Must be at least 8 characters with uppercase, lowercase, and numbers
+        - generic [ref=e24]:
+          - generic [ref=e25]: Confirm Password
+          - generic [ref=e26]:
+            - textbox "Confirm Password" [ref=e27]:
+              - /placeholder: Re-enter your password
+            - button "Show password" [ref=e28] [cursor=pointer]: 👁️
+        - button "Create Account" [ref=e29] [cursor=pointer]
+      - paragraph [ref=e31]:
+        - text: Already have an account?
+        - link "Sign in" [ref=e32] [cursor=pointer]:
+          - /url: login.html
+```
