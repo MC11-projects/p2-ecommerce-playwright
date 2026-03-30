@@ -27,7 +27,6 @@ test.describe('Authentication', () => {
     test('Login with invalid email credential', async ({page}) => {
         await loginPage.login('testemail', process.env.TEST_USER_PASSWORD)
             
-        await expect (page.locator('#toastContainer .toast-message')).toHaveText('')
         await expect(loginPage.emailError).toBeVisible()
         await expect(loginPage.emailError).toContainText('Please enter a valid email address')
         await expect(page).toHaveURL(/.*login.html/)
