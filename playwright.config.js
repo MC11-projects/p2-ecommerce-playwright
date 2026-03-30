@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -25,6 +26,7 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
   ['html'],
+  ['list'],
   ['allure-playwright', {
     detail: true,
     outputFolder: 'allure-results',
@@ -34,18 +36,34 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-    baseURL: 'https://d31p8cguca5y8k.cloudfront.net',
+    baseURL: process.env.BASE_URL,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    screenshot: 'only-on-failure'
   },
 
   /* Configure projects for major browsers */
   projects: [
+
+    {
+      name: 'setup',
+      testMatch: /.*\.setup\.js/
+    },
+
+    {
+    name: 'chromium-no-auth',
+    use: { ...devices['Desktop Chrome'] },
+    testMatch: /.*auth-login\.spec\.js/ 
+    },
+
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'], storageState: '.auth/user.json' },
+      dependencies: ['setup'],
+      testIgnore: /.*auth-login\.spec\.js/ 
     },
+    
 
     // {
     //   name: 'firefox',

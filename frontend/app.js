@@ -181,12 +181,6 @@ function displayDeals(deals) {
     // Add click listeners to deal cards
     document.querySelectorAll('.deal-card').forEach(card => {
         card.addEventListener('click', () => {
-            // Don't open modal for disabled deals
-            if (card.dataset.disabled === 'true') {
-                showToast('This deal is no longer available', 'error');
-                return;
-            }
-            
             const dealId = card.dataset.dealId;
             const deal = allDeals.find(d => d.dealId === dealId);
             if (deal) {
@@ -262,11 +256,20 @@ function openDealModal(deal) {
         
         ${canPurchase ? `
             <div class="quantity-selector">
-                <button onclick="changeQuantity(-1)">−</button>
-                <input type="number" id="quantityInput" value="1" min="1" max="${deal.quantity}" readonly>
-                <button onclick="changeQuantity(1)">+</button>
+                <button onclick="changeQuantity(-1, ${deal.quantity})">−</button>
+                <input 
+                    type="number" 
+                    id="quantityInput" 
+                    value="1" 
+                    min="1" 
+                    max="${deal.quantity > 10 ? 10 : deal.quantity}" 
+                    onchange="validateQuantity(${deal.quantity})"
+                    oninput="validateQuantity(${deal.quantity})"
+                >
+                <button onclick="changeQuantity(1, ${deal.quantity})">+</button>
             </div>
-            <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('${deal.dealId}')">
+            <div id="quantityWarning" style="color: #e53e3e; font-size: 0.875rem; margin-top: 0.5rem; display: none;"></div>
+            <button id="addToCartBtn" class="btn btn-primary" style="width: 100%;" onclick="addToCart('${deal.dealId}')">
                 Add to Cart
             </button>
         ` : `
@@ -280,14 +283,88 @@ function openDealModal(deal) {
 }
 
 // Change quantity in modal
-function changeQuantity(delta) {
+function changeQuantity(delta, maxStock) {
     const input = document.getElementById('quantityInput');
-    const newValue = parseInt(input.value) + delta;
-    const max = parseInt(input.max);
+    const max = Math.min(maxStock, 10);
+    let currentValue = parseInt(input.value);
     
-    if (newValue >= 1 && newValue <= max) {
-        input.value = newValue;
+    // If current value is invalid or too high, normalize first
+    if (isNaN(currentValue) || currentValue < 1) {
+        // Invalid - set to 1
+        currentValue = 1;
+    } else if (currentValue > max) {
+        // Over max - don't allow increasing, only decreasing to max
+        if (delta > 0) {
+            // Trying to increase when already over max - do nothing
+            validateQuantity(maxStock);
+            return;
+        } else {
+            // Decreasing - set to max first
+            currentValue = max;
+        }
+    } else {
+        // Valid current value - apply delta normally
+        const newValue = currentValue + delta;
+        
+        // Check if new value is within range
+        if (newValue >= 1 && newValue <= max) {
+            currentValue = newValue;
+        } else {
+            // Out of range - keep current
+            validateQuantity(maxStock);
+            return;
+        }
     }
+    
+    input.value = currentValue;
+    
+    // Always validate after button click to update button state
+    validateQuantity(maxStock);
+}
+
+// Validate quantity for manual input
+function validateQuantity(maxStock) {
+    const input = document.getElementById('quantityInput');
+    const warning = document.getElementById('quantityWarning');
+    const addButton = document.getElementById('addToCartBtn');
+    const maxAllowed = Math.min(maxStock, 10); // Cap at 10 per purchase
+    let value = parseInt(input.value);
+    
+    // Handle invalid input (empty, negative, zero, or NaN)
+    if (isNaN(value) || value < 1) {
+        warning.textContent = 'Please enter a valid quantity (minimum 1)';
+        warning.style.display = 'block';
+        addButton.disabled = true;
+        addButton.style.opacity = '0.5';
+        addButton.style.cursor = 'not-allowed';
+        return;
+    }
+    
+    // Check if exceeds available stock
+    if (value > maxStock) {
+        warning.textContent = `Only ${maxStock} available. Please adjust quantity.`;
+        warning.style.display = 'block';
+        addButton.disabled = true;
+        addButton.style.opacity = '0.5';
+        addButton.style.cursor = 'not-allowed';
+        return;
+    }
+    
+    // Check if exceeds max per purchase (10)
+    if (value > 10) {
+        warning.textContent = `Maximum 10 per purchase. Please adjust quantity.`;
+        warning.style.display = 'block';
+        addButton.disabled = true;
+        addButton.style.opacity = '0.5';
+        addButton.style.cursor = 'not-allowed';
+        return;
+    }
+    
+    // Valid quantity - enable button and clear warning
+    warning.style.display = 'none';
+    addButton.disabled = false;
+    addButton.style.opacity = '1';
+    addButton.style.cursor = 'pointer';
 }
 
 // Add to cart
@@ -297,6 +374,14 @@ function addToCart(dealId) {
     
     // Check if item already in cart
     const existingItem = cart.find(item => item.dealId === dealId);
+    const currentCartQuantity = existingItem ? existingItem.quantity : 0;
+    const totalQuantity = currentCartQuantity + quantity;
+    
+    // Validate against available stock
+    if (totalQuantity > deal.quantity) {
+        showToast(`Only ${deal.quantity} available. You have ${currentCartQuantity} in cart already.`, 'error');
+        return;
+    }
     
     if (existingItem) {
         existingItem.quantity += quantity;
@@ -320,7 +405,7 @@ function addToCart(dealId) {
 }
 
 // Open cart modal
-function openCart() {
+async function openCart() {
     if (cart.length === 0) {
         const cartBody = document.getElementById('cartBody');
         cartBody.innerHTML = `
@@ -334,8 +419,50 @@ function openCart() {
         return;
     }
     
+    // Validate cart items against current stock
+    await validateCartItems();
+    
     displayCart();
     openModal('cartModal');
+}
+
+// Validate cart items against current deals
+async function validateCartItems() {
+    const now = new Date();
+    const warnings = [];
+    
+    for (let i = cart.length - 1; i >= 0; i--) {
+        const cartItem = cart[i];
+        const currentDeal = allDeals.find(d => d.dealId === cartItem.dealId);
+        
+        if (!currentDeal) {
+            warnings.push(`${cartItem.title} is no longer available and was removed from cart`);
+            cart.splice(i, 1);
+            continue;
+        }
+        
+        const isExpired = new Date(currentDeal.expiresAt) < now;
+        const isSoldOut = currentDeal.quantity === 0;
+        
+        if (isExpired) {
+            warnings.push(`${cartItem.title} has expired and was removed from cart`);
+            cart.splice(i, 1);
+        } else if (isSoldOut) {
+            warnings.push(`${cartItem.title} is sold out and was removed from cart`);
+            cart.splice(i, 1);
+        } else if (cartItem.quantity > currentDeal.quantity) {
+            // Adjust quantity to available stock
+            const oldQuantity = cartItem.quantity;
+            cartItem.quantity = currentDeal.quantity;
+            warnings.push(`${cartItem.title}: Only ${currentDeal.quantity} available (reduced from ${oldQuantity})`);
+        }
+    }
+    
+    if (warnings.length > 0) {
+        updateCartCount();
+        saveCartToStorage();
+        warnings.forEach(warning => showToast(warning, 'error'));
+    }
 }
 
 // Display cart

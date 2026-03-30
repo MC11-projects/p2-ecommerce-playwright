@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - DailyDeals</title>
+    <link rel="icon" href="data:,">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -23,7 +24,7 @@
                 <h1>Welcome Back</h1>
                 <p class="auth-subtitle">Sign in to your account</p>
 
-                <form id="loginForm" class="auth-form">
+                <form id="loginForm" class="auth-form" novalidate>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input 
@@ -33,6 +34,7 @@
                             placeholder="your@email.com"
                             autocomplete="email"
                         >
+                        <div id="emailError" class="field-error-message" style="display: none;"></div>
                     </div>
 
                     <div class="form-group">
@@ -49,6 +51,7 @@
                                 👁️
                             </button>
                         </div>
+                        <div id="passwordError" class="field-error-message" style="display: none;"></div>
                     </div>
 
                     <div id="errorMessage" class="error-message" style="display: none;"></div>
@@ -117,11 +120,54 @@
             this.textContent = type === 'password' ? '👁️' : '🙈';
         });
 
+        // Form validation function
+        function validateForm() {
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            
+            let isValid = true;
+            
+            // Clear previous errors
+            emailError.style.display = 'none';
+            passwordError.style.display = 'none';
+            
+            // Validate email
+            if (!email) {
+                emailError.textContent = 'Email is required';
+                emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                // Basic email format validation
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    emailError.textContent = 'Please enter a valid email address';
+                    emailError.style.display = 'block';
+                    isValid = false;
+                }
+            }
+            
+            // Validate password
+            if (!password) {
+                passwordError.textContent = 'Password is required';
+                passwordError.style.display = 'block';
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
         // Handle login form submission
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const email = document.getElementById('email').value;
+            // Validate form first
+            if (!validateForm()) {
+                return; // Stop if validation fails
+            }
+            
+            const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
             const errorDiv = document.getElementById('errorMessage');
             const submitBtn = e.target.querySelector('button[type="submit"]');

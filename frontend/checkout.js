@@ -44,6 +44,19 @@ async function checkAuthentication() {
         
         // User is authenticated - proceed with checkout
         loadCartFromStorage();
+        
+        // Validate cart items before checkout
+        await validateCartItems();
+        
+        // Check if cart is empty after validation
+        if (cart.length === 0) {
+            showToast('Your cart is empty', 'error');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
+            return;
+        }
+        
         displayOrderSummary();
         setupEventListeners();
         prefillUserInfo();
@@ -108,9 +121,61 @@ function loadCartFromStorage() {
         cart = JSON.parse(savedCart);
     }
     
-    // Redirect if cart is empty
-    if (cart.length === 0) {
-        window.location.href = 'index.html';
+    // Note: Don't redirect here - let validation handle empty cart
+}
+
+// Validate cart items against current deals
+async function validateCartItems() {
+    try {
+        // Fetch current deals from API
+        const response = await fetch(`${API_BASE_URL}/deals`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch deals');
+        }
+        
+        const data = await response.json();
+        const currentDeals = data.deals || [];
+        
+        const now = new Date();
+        const warnings = [];
+        
+        // Validate each cart item
+        for (let i = cart.length - 1; i >= 0; i--) {
+            const cartItem = cart[i];
+            const currentDeal = currentDeals.find(d => d.dealId === cartItem.dealId);
+            
+            if (!currentDeal) {
+                warnings.push(`${cartItem.title} is no longer available and was removed from cart`);
+                cart.splice(i, 1);
+                continue;
+            }
+            
+            const isExpired = new Date(currentDeal.expiresAt) < now;
+            const isSoldOut = currentDeal.quantity === 0;
+            
+            if (isExpired) {
+                warnings.push(`${cartItem.title} has expired and was removed from cart`);
+                cart.splice(i, 1);
+            } else if (isSoldOut) {
+                warnings.push(`${cartItem.title} is sold out and was removed from cart`);
+                cart.splice(i, 1);
+            } else if (cartItem.quantity > currentDeal.quantity) {
+                // Adjust quantity to available stock
+                const oldQuantity = cartItem.quantity;
+                cartItem.quantity = currentDeal.quantity;
+                warnings.push(`${cartItem.title}: Only ${currentDeal.quantity} available (reduced from ${oldQuantity})`);
+            }
+        }
+        
+        // Save updated cart and show warnings
+        if (warnings.length > 0) {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            warnings.forEach(warning => showToast(warning, 'error'));
+        }
+        
+    } catch (error) {
+        console.error('Error validating cart:', error);
+        showToast('Unable to validate cart items', 'error');
     }
 }
 
@@ -122,7 +187,7 @@ function displayOrderSummary() {
     const total = subtotal - discount;
     
     // Display items
-    orderItems.innerHTML = cart.map(item => `
+    orderItems.innerHTML = cart.map((item, index) => `
         <div class="order-item">
             <img src="${item.imageUrl}" alt="${item.title}" class="order-item-image">
             <div class="order-item-details">
@@ -130,6 +195,7 @@ function displayOrderSummary() {
                 <div class="order-item-quantity">Quantity: ${item.quantity}</div>
             </div>
             <div class="order-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+            <button class="remove-btn" onclick="removeFromCheckout(${index})" title="Remove item">✕</button>
         </div>
     `).join('');
     
@@ -145,6 +211,29 @@ function displayOrderSummary() {
         // Disable voucher input
         document.getElementById('voucherInput').disabled = true;
         document.getElementById('applyVoucherBtn').disabled = true;
+    }
+}
+
+// Remove item from checkout
+function removeFromCheckout(index) {
+    const removedItem = cart[index];
+    cart.splice(index, 1);
+    
+    // Update localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    // Show toast
+    showToast(`${removedItem.title} removed from cart`, 'info');
+    
+    // If cart is empty, redirect to home
+    if (cart.length === 0) {
+        showToast('Your cart is empty. Redirecting...', 'info');
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1500);
+    } else {
+        // Re-display order summary
+        displayOrderSummary();
     }
 }
 
@@ -193,18 +282,68 @@ async function applyVoucher() {
 async function submitOrder(event) {
     event.preventDefault();
     
-    const customerName = document.getElementById('customerName').value;
-    const customerEmail = document.getElementById('customerEmail').value;
-    const customerAddress = document.getElementById('customerAddress').value;
-    const customerCity = document.getElementById('customerCity').value;
-    const customerState = document.getElementById('customerState').value;
-    const customerZip = document.getElementById('customerZip').value;
+    const customerName = document.getElementById('customerName').value.trim();
+    const customerEmail = document.getElementById('customerEmail').value.trim();
+    const customerAddress = document.getElementById('customerAddress').value.trim();
+    const customerCity = document.getElementById('customerCity').value.trim();
+    const customerState = document.getElementById('customerState').value.trim();
+    const customerZip = document.getElementById('customerZip').value.trim();
+    
+    // Validate customer name (at least 2 characters, letters and spaces)
+    if (customerName.length < 2 || !/^[a-zA-Z\s'-]+$/.test(customerName)) {
+        showToast('Please enter a valid name (letters only).', 'error');
+        return;
+    }
+    
+    // Validate email (basic check - HTML5 input type="email" already validates)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(customerEmail)) {
+        showToast('Please enter a valid email address.', 'error');
+        return;
+    }
+    
+    // Validate address (not empty, reasonable length)
+    if (customerAddress.length < 5 || customerAddress.length > 200) {
+        showToast('Please enter a valid address (5-200 characters).', 'error');
+        return;
+    }
+    
+    // Validate city (letters, spaces, hyphens only)
+    if (customerCity.length < 2 || !/^[a-zA-Z\s'-]+$/.test(customerCity)) {
+        showToast('Please enter a valid city name.', 'error');
+        return;
+    }
+    
+    // Validate state (2-50 characters, letters and spaces)
+    if (customerState.length < 2 || customerState.length > 50 || !/^[a-zA-Z\s'-]+$/.test(customerState)) {
+        showToast('Please enter a valid state/province.', 'error');
+        return;
+    }
+    
+    // Validate ZIP/postal code (alphanumeric, 3-10 characters for international support)
+    if (customerZip.length < 3 || customerZip.length > 10 || !/^[a-zA-Z0-9\s-]+$/.test(customerZip)) {
+        showToast('Please enter a valid ZIP/postal code.', 'error');
+        return;
+    }
+    
+    // Ensure ZIP has at least 3 digits (catches random strings like "53ufuewit")
+    const digitCount = (customerZip.match(/\d/g) || []).length;
+    if (digitCount < 3) {
+        showToast('ZIP/postal code must contain at least 3 digits.', 'error');
+        return;
+    }
     
     // Get and validate card details
     const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
-    const cardName = document.getElementById('cardName').value;
-    const cardExpiry = document.getElementById('cardExpiry').value;
-    const cardCVV = document.getElementById('cardCVV').value;
+    const cardName = document.getElementById('cardName').value.trim();
+    const cardExpiry = document.getElementById('cardExpiry').value.trim();
+    const cardCVV = document.getElementById('cardCVV').value.trim();
+    
+    // Validate cardholder name (at least 2 characters, letters and spaces)
+    if (cardName.length < 2 || !/^[a-zA-Z\s'-]+$/.test(cardName)) {
+        showToast('Please enter a valid cardholder name.', 'error');
+        return;
+    }
     
     // Validate card number (16 digits)
     if (cardNumber.length !== 16 || !/^\d+$/.test(cardNumber)) {

@@ -1,0 +1,101 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - heading "🎁 DailyDeals" [level=1] [ref=e5]
+      - generic [ref=e6]:
+        - button "Toggle dark mode" [ref=e7] [cursor=pointer]: 🌙
+        - button "👤 test test" [ref=e9] [cursor=pointer]:
+          - generic [ref=e10]: 👤
+          - generic [ref=e11]: test test
+        - button "🛒 Cart (0)" [ref=e12] [cursor=pointer]
+  - main [ref=e13]:
+    - generic [ref=e14]:
+      - textbox "Search deals" [ref=e16]:
+        - /placeholder: Search deals...
+      - generic [ref=e17]:
+        - combobox "Filter by category" [ref=e18] [cursor=pointer]:
+          - option "All Categories" [selected]
+          - option "Wellness"
+          - option "Food"
+          - option "Activities"
+          - option "Services"
+          - option "Entertainment"
+        - combobox "Sort deals" [ref=e19] [cursor=pointer]:
+          - option "Newest First" [selected]
+          - option "Highest Discount"
+          - 'option "Price: Low to High"'
+          - 'option "Price: High to Low"'
+          - option "Expiring Soon"
+    - generic [ref=e20]:
+      - generic [ref=e21]:
+        - img "Escape Room Experience - 2 Players" [ref=e22]
+        - generic [ref=e23]:
+          - generic [ref=e24]: Entertainment
+          - heading "Escape Room Experience - 2 Players" [level=3] [ref=e25]
+          - paragraph [ref=e26]: 60-minute escape room adventure. Test your puzzle-solving skills in our most popular mystery room!
+          - generic [ref=e27]:
+            - generic [ref=e28]: $29
+            - generic [ref=e29]: $50
+            - generic [ref=e30]: 42% OFF
+          - generic [ref=e31]:
+            - generic [ref=e32]: 25 available
+            - generic [ref=e33]: EXPIRED
+      - generic [ref=e34]:
+        - img "Premium Car Wash & Detail" [ref=e35]
+        - generic [ref=e36]:
+          - generic [ref=e37]: Services
+          - heading "Premium Car Wash & Detail" [level=3] [ref=e38]
+          - paragraph [ref=e39]: Complete exterior wash, interior detailing, wax application, and tire shine. Your car will look brand new!
+          - generic [ref=e40]:
+            - generic [ref=e41]: $59
+            - generic [ref=e42]: $120
+            - generic [ref=e43]: 51% OFF
+          - generic [ref=e44]:
+            - generic [ref=e45]: SOLD OUT
+            - generic [ref=e46]: Expires 5/1/2026
+      - generic [ref=e47] [cursor=pointer]:
+        - img "Adventure Park Day Pass" [ref=e48]
+        - generic [ref=e49]:
+          - generic [ref=e50]: Activities
+          - heading "Adventure Park Day Pass" [level=3] [ref=e51]
+          - paragraph [ref=e52]: Unlimited access to zip lines, rock climbing, and adventure courses. Family-friendly activities for all ages.
+          - generic [ref=e53]:
+            - generic [ref=e54]: $35
+            - generic [ref=e55]: $65
+            - generic [ref=e56]: 46% OFF
+          - generic [ref=e57]:
+            - generic [ref=e58]: 21 available
+            - generic [ref=e59]: Expires 8/1/2026
+      - generic [ref=e60] [cursor=pointer]:
+        - img "Italian Restaurant 3-Course Meal" [ref=e61]
+        - generic [ref=e62]:
+          - generic [ref=e63]: Food
+          - heading "Italian Restaurant 3-Course Meal" [level=3] [ref=e64]
+          - paragraph [ref=e65]: Authentic Italian cuisine featuring appetizer, main course, and dessert. Wine pairing available.
+          - generic [ref=e66]:
+            - generic [ref=e67]: $45
+            - generic [ref=e68]: $80
+            - generic [ref=e69]: 44% OFF
+          - generic [ref=e70]:
+            - generic [ref=e71]: Only 1 left!
+            - generic [ref=e72]: Expires 5/16/2026
+      - generic [ref=e73] [cursor=pointer]:
+        - img "Spa Day Package - Luxury Retreat" [ref=e74]
+        - generic [ref=e75]:
+          - generic [ref=e76]: Wellness
+          - heading "Spa Day Package - Luxury Retreat" [level=3] [ref=e77]
+          - paragraph [ref=e78]: Enjoy a full day of relaxation with massage, facial, and access to spa facilities. Perfect for unwinding and rejuvenation.
+          - generic [ref=e79]:
+            - generic [ref=e80]: $99
+            - generic [ref=e81]: $200
+            - generic [ref=e82]: 50% OFF
+          - generic [ref=e83]:
+            - generic [ref=e84]: 14 available
+            - generic [ref=e85]: Expires 7/1/2026
+  - generic [ref=e87]:
+    - generic [ref=e88]: ✅
+    - generic [ref=e89]: Logged out successfully
+```
