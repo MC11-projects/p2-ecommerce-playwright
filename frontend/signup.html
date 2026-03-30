@@ -24,7 +24,7 @@
                 <h1>Create Account</h1>
                 <p class="auth-subtitle">Join DailyDeals and start saving!</p>
 
-                <form id="signupForm" class="auth-form">
+                <form id="signupForm" class="auth-form" novalidate>
                     <div class="form-group">
                         <label for="name">Full Name</label>
                         <input 
@@ -34,6 +34,7 @@
                             placeholder="John Doe"
                             autocomplete="name"
                         >
+                        <div id="nameError" class="field-error-message" style="display: none;"></div>
                     </div>
 
                     <div class="form-group">
@@ -45,6 +46,7 @@
                             placeholder="your@email.com"
                             autocomplete="email"
                         >
+                        <div id="emailError" class="field-error-message" style="display: none;"></div>
                     </div>
 
                     <div class="form-group">
@@ -62,6 +64,7 @@
                                 👁️
                             </button>
                         </div>
+                        <div id="passwordError" class="field-error-message" style="display: none;"></div>
                         <small style="color: #718096; font-size: 0.85rem;">
                             Must be at least 8 characters with uppercase, lowercase, and numbers
                         </small>
@@ -82,6 +85,19 @@
                                 👁️
                             </button>
                         </div>
+                        <div id="confirmPasswordError" class="field-error-message" style="display: none;"></div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 0.5rem;">
+                        <label style="display: flex; align-items: center; cursor: pointer; font-size: 0.9rem;">
+                            <input 
+                                type="checkbox" 
+                                id="termsCheckbox" 
+                                style="margin-right: 0.5rem; cursor: pointer;"
+                            >
+                            <span>I agree to the <a href="terms.html" target="_blank" style="color: #667eea; text-decoration: underline;">Terms & Conditions</a></span>
+                        </label>
+                        <div id="termsError" class="field-error-message" style="display: none;"></div>
                     </div>
 
                     <div id="errorMessage" class="error-message" style="display: none;"></div>
@@ -155,27 +171,120 @@
             this.textContent = type === 'password' ? '👁️' : '🙈';
         });
 
+        // Form validation function
+        function validateForm() {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const termsChecked = document.getElementById('termsCheckbox').checked;
+            
+            const nameError = document.getElementById('nameError');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const confirmPasswordError = document.getElementById('confirmPasswordError');
+            const termsError = document.getElementById('termsError');
+            
+            let isValid = true;
+            
+            // Clear previous errors
+            nameError.style.display = 'none';
+            emailError.style.display = 'none';
+            passwordError.style.display = 'none';
+            confirmPasswordError.style.display = 'none';
+            termsError.style.display = 'none';
+            
+            // Validate name
+            if (!name) {
+                nameError.textContent = 'Name is required';
+                nameError.style.display = 'block';
+                isValid = false;
+            } else if (name.length < 2) {
+                nameError.textContent = 'Name must be at least 2 characters';
+                nameError.style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate email
+            if (!email) {
+                emailError.textContent = 'Email is required';
+                emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    emailError.textContent = 'Please enter a valid email address';
+                    emailError.style.display = 'block';
+                    isValid = false;
+                }
+            }
+            
+            // Validate password
+            if (!password) {
+                passwordError.textContent = 'Password is required';
+                passwordError.style.display = 'block';
+                isValid = false;
+            } else if (password.length < 8) {
+                passwordError.textContent = 'Password must be at least 8 characters';
+                passwordError.style.display = 'block';
+                isValid = false;
+            } else {
+                // Check for uppercase, lowercase, and number
+                const hasUppercase = /[A-Z]/.test(password);
+                const hasLowercase = /[a-z]/.test(password);
+                const hasNumber = /[0-9]/.test(password);
+                
+                if (!hasUppercase || !hasLowercase || !hasNumber) {
+                    passwordError.textContent = 'Password must contain uppercase, lowercase, and numbers';
+                    passwordError.style.display = 'block';
+                    isValid = false;
+                }
+            }
+            
+            // Validate confirm password
+            if (!confirmPassword) {
+                confirmPasswordError.textContent = 'Please confirm your password';
+                confirmPasswordError.style.display = 'block';
+                isValid = false;
+            } else if (password !== confirmPassword) {
+                confirmPasswordError.textContent = 'Passwords do not match';
+                confirmPasswordError.style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate terms checkbox
+            if (!termsChecked) {
+                termsError.textContent = 'You must agree to the Terms & Conditions';
+                termsError.style.display = 'block';
+                isValid = false;
+            }
+            
+            // If validation passed, strip whitespace from input fields
+            if (isValid) {
+                document.getElementById('name').value = name;
+                document.getElementById('email').value = email;
+            }
+            
+            return isValid;
+        }
+
         // Handle signup form submission
         document.getElementById('signupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
+            // Validate form first
+            if (!validateForm()) {
+                return; // Stop if validation fails
+            }
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
             const errorDiv = document.getElementById('errorMessage');
             const submitBtn = e.target.querySelector('button[type="submit"]');
             
             // Clear previous errors
             errorDiv.style.display = 'none';
-            
-            // Validate passwords match
-            if (password !== confirmPassword) {
-                errorDiv.textContent = 'Passwords do not match';
-                errorDiv.style.display = 'block';
-                showToast('Passwords do not match', 'error');
-                return;
-            }
             
             // Disable button
             submitBtn.disabled = true;
