@@ -1,0 +1,4 @@
+Start: https://d31p8cguca5y8k.cloudfront.net/
+After checkout goto: https://d31p8cguca5y8k.cloudfront.net/checkout.html
+After logout: https://d31p8cguca5y8k.cloudfront.net/index.html
+After goBack: https://d31p8cguca5y8k.cloudfront.net/login.html?redirect=checkout.html

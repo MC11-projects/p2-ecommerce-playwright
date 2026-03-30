@@ -1,0 +1,3 @@
+After goto: https://d31p8cguca5y8k.cloudfront.net/
+After logout: https://d31p8cguca5y8k.cloudfront.net/
+After goBack: about:blank
