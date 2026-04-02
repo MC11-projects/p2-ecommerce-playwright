@@ -725,6 +725,7 @@ header {
 }
 
 .error-message {
+    display: none; /* Hidden by default */
     background: #fed7d7;
     color: #742a2a;
     padding: 0.75rem;

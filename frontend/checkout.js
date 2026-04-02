@@ -59,31 +59,11 @@ async function checkAuthentication() {
         
         displayOrderSummary();
         setupEventListeners();
-        prefillUserInfo();
         
     } catch (error) {
         console.error('Auth check error:', error);
         // Redirect to login on error
         window.location.href = `login.html?redirect=checkout.html`;
-    }
-}
-
-// Pre-fill user info from Cognito
-async function prefillUserInfo() {
-    try {
-        const userInfo = await auth.getCurrentUser();
-        
-        if (userInfo.name) {
-            document.getElementById('customerName').value = userInfo.name;
-        }
-        
-        if (userInfo.email) {
-            document.getElementById('customerEmail').value = userInfo.email;
-            document.getElementById('customerEmail').readOnly = true; // Don't allow changing email
-        }
-    } catch (error) {
-        console.error('Error getting user info:', error);
-        // Non-fatal error - user can still fill in manually
     }
 }
 

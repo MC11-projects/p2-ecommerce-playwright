@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+https://d31p8cguca5y8k.cloudfront.net/checkout.html?
+<!DOCTYPE html><html lang="en" data-theme="light"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - DailyDeals</title>
@@ -62,61 +61,37 @@
                     <form id="checkoutForm" class="checkout-form">
                         <div class="form-group">
                             <label for="customerName">Full Name *</label>
-                            <input 
-                                type="text" 
-                                id="customerName"
-                                placeholder="John Doe"
-                            >
+                            <input type="text" id="customerName" placeholder="John Doe">
                             <div class="error-message" id="customerNameError"></div>
                         </div>
                         
                         <div class="form-group">
                             <label for="customerEmail">Email *</label>
-                            <input 
-                                type="text" 
-                                id="customerEmail"
-                                placeholder="john@example.com"
-                            >
+                            <input type="text" id="customerEmail" placeholder="john@example.com">
                             <div class="error-message" id="customerEmailError"></div>
                         </div>
                         
                         <div class="form-group">
                             <label for="customerAddress">Shipping Address *</label>
-                            <input 
-                                type="text" 
-                                id="customerAddress"
-                                placeholder="123 Main Street"
-                            >
+                            <input type="text" id="customerAddress" placeholder="123 Main Street">
                             <div class="error-message" id="customerAddressError"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="customerCity">City *</label>
-                            <input 
-                                type="text" 
-                                id="customerCity"
-                                placeholder="New York"
-                            >
+                            <input type="text" id="customerCity" placeholder="New York">
                             <div class="error-message" id="customerCityError"></div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="customerState">State/Province *</label>
-                                <input 
-                                    type="text" 
-                                    id="customerState"
-                                    placeholder="NY"
-                                >
+                                <input type="text" id="customerState" placeholder="NY">
                                 <div class="error-message" id="customerStateError"></div>
                             </div>
                             <div class="form-group">
                                 <label for="customerZip">ZIP/Postal Code *</label>
-                                <input 
-                                    type="text" 
-                                    id="customerZip"
-                                    placeholder="12345"
-                                >
+                                <input type="text" id="customerZip" placeholder="12345">
                                 <div class="error-message" id="customerZipError"></div>
                             </div>
                         </div>
@@ -125,45 +100,25 @@
 
                         <div class="form-group">
                             <label for="cardNumber">Card Number *</label>
-                            <input 
-                                type="text" 
-                                id="cardNumber"
-                                placeholder="1234 5678 9012 3456"
-                                autocomplete="cc-number"
-                            >
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" autocomplete="cc-number">
                             <div class="error-message" id="cardNumberError"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="cardName">Cardholder Name *</label>
-                            <input 
-                                type="text" 
-                                id="cardName"
-                                placeholder="Name on card"
-                                autocomplete="cc-name"
-                            >
+                            <input type="text" id="cardName" placeholder="Name on card" autocomplete="cc-name">
                             <div class="error-message" id="cardNameError"></div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="cardExpiry">Expiry Date *</label>
-                                <input 
-                                    type="text" 
-                                    id="cardExpiry"
-                                    placeholder="MM/YY"
-                                    autocomplete="cc-exp"
-                                >
+                                <input type="text" id="cardExpiry" placeholder="MM/YY" autocomplete="cc-exp">
                                 <div class="error-message" id="cardExpiryError"></div>
                             </div>
                             <div class="form-group">
                                 <label for="cardCVV">CVV *</label>
-                                <input 
-                                    type="text" 
-                                    id="cardCVV"
-                                    placeholder="123"
-                                    autocomplete="cc-csc"
-                                >
+                                <input type="text" id="cardCVV" placeholder="123" autocomplete="cc-csc">
                                 <div class="error-message" id="cardCVVError"></div>
                             </div>
                         </div>
@@ -192,6 +147,4 @@
     </script>
     
     <script src="auth.js"></script>
-    <script src="checkout.js"></script>
-</body>
-</html>
+    <script src="checkout.js"></script></body></html>
