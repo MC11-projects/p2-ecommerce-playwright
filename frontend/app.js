@@ -478,6 +478,11 @@ function displayCart() {
                     <div class="cart-item-details">
                         <div class="cart-item-title">${item.title}</div>
                         <div class="cart-item-price">$${item.price} × ${item.quantity} = $${(item.price * item.quantity).toFixed(2)}</div>
+                        <div class="cart-item-quantity-controls">
+                            <button class="quantity-btn" onclick="updateCartQuantity(${index}, -1)" ${item.quantity <= 1 ? 'disabled' : ''}>−</button>
+                            <span class="cart-quantity-display">${item.quantity}</span>
+                            <button class="quantity-btn" onclick="updateCartQuantity(${index}, 1)" ${item.quantity >= Math.min(item.maxQuantity, 10) ? 'disabled' : ''}>+</button>
+                        </div>
                     </div>
                     <div class="cart-item-actions">
                         <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
@@ -514,6 +519,37 @@ function removeFromCart(index) {
     } else {
         displayCart();
     }
+}
+
+// Update cart item quantity
+function updateCartQuantity(index, change) {
+    const item = cart[index];
+    const newQuantity = item.quantity + change;
+    
+    // Validate new quantity
+    if (newQuantity < 1) {
+        showToast('Quantity cannot be less than 1', 'error');
+        return;
+    }
+    
+    if (newQuantity > item.maxQuantity) {
+        showToast(`Only ${item.maxQuantity} available`, 'error');
+        return;
+    }
+    
+    if (newQuantity > 10) {
+        showToast('Maximum 10 per purchase', 'error');
+        return;
+    }
+    
+    // Update quantity
+    item.quantity = newQuantity;
+    
+    updateCartCount();
+    saveCartToStorage();
+    displayCart();
+    
+    showToast('Cart updated', 'success');
 }
 
 // Proceed to checkout
