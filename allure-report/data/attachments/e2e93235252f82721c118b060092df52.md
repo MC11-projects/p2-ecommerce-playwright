@@ -1,0 +1,96 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - link "🎁 DailyDeals" [ref=e5] [cursor=pointer]:
+      - /url: index.html
+      - heading "🎁 DailyDeals" [level=1] [ref=e6]
+  - main [ref=e7]:
+    - generic [ref=e8]:
+      - heading "Checkout" [level=1] [ref=e9]
+      - generic [ref=e10]:
+        - generic [ref=e11]:
+          - heading "Order Summary" [level=2] [ref=e12]
+          - generic [ref=e14]:
+            - img "Adventure Park Day Pass" [ref=e15]
+            - generic [ref=e16]:
+              - generic [ref=e17]: Adventure Park Day Pass
+              - generic [ref=e18]: "Quantity: 1"
+            - generic [ref=e19]: $35.00
+            - button "✕" [ref=e20] [cursor=pointer]
+          - generic [ref=e21]:
+            - generic [ref=e22]:
+              - generic [ref=e23]: "Subtotal:"
+              - generic [ref=e24]: $35.00
+            - generic [ref=e25]:
+              - generic [ref=e26]: "Total:"
+              - generic [ref=e27]: $35.00
+        - generic [ref=e28]:
+          - heading "Payment Information" [level=2] [ref=e29]
+          - generic [ref=e30]:
+            - heading "Have a voucher code?" [level=3] [ref=e31]
+            - generic [ref=e32]:
+              - textbox "Enter code" [ref=e33]
+              - button "Apply" [ref=e34] [cursor=pointer]
+          - generic [ref=e35]:
+            - generic [ref=e36]:
+              - generic [ref=e37]: Full Name *
+              - textbox "Full Name *" [ref=e38]:
+                - /placeholder: John Doe
+                - text: test test
+              - generic [ref=e39]: Please enter a valid name (letters only).
+            - generic [ref=e40]:
+              - generic [ref=e41]: Email *
+              - textbox "Email *" [ref=e42]:
+                - /placeholder: john@example.com
+                - text: testexample1@example.com
+              - generic [ref=e43]: Please enter a valid email address.
+            - generic [ref=e44]:
+              - generic [ref=e45]: Shipping Address *
+              - textbox "Shipping Address *" [ref=e46]:
+                - /placeholder: 123 Main Street
+                - text: 111 Test Street
+            - generic [ref=e47]:
+              - generic [ref=e48]: City *
+              - textbox "City *" [ref=e49]:
+                - /placeholder: New York
+                - text: Bucharest
+            - generic [ref=e50]:
+              - generic [ref=e51]:
+                - generic [ref=e52]: State/Province *
+                - textbox "State/Province *" [ref=e53]:
+                  - /placeholder: NY
+                  - text: Bucharest
+              - generic [ref=e54]:
+                - generic [ref=e55]: ZIP/Postal Code *
+                - textbox "ZIP/Postal Code *" [ref=e56]:
+                  - /placeholder: "12345"
+                  - text: "11111"
+            - heading "Payment Information" [level=3] [ref=e57]
+            - generic [ref=e58]:
+              - generic [ref=e59]: Card Number *
+              - textbox "Card Number *" [ref=e60]:
+                - /placeholder: 1234 5678 9012 3456
+                - text: 4111 1111 1111 1111
+            - generic [ref=e61]:
+              - generic [ref=e62]: Cardholder Name *
+              - textbox "Cardholder Name *" [ref=e63]:
+                - /placeholder: Name on card
+                - text: John Doe
+            - generic [ref=e64]:
+              - generic [ref=e65]:
+                - generic [ref=e66]: Expiry Date *
+                - textbox "Expiry Date *" [ref=e67]:
+                  - /placeholder: MM/YY
+                  - text: 12/26
+              - generic [ref=e68]:
+                - generic [ref=e69]: CVV *
+                - textbox "CVV *" [ref=e70]:
+                  - /placeholder: "123"
+                  - text: "123"
+            - generic [ref=e71]:
+              - link "Back to Shopping" [ref=e72] [cursor=pointer]:
+                - /url: index.html
+              - button "Complete Purchase" [active] [ref=e73] [cursor=pointer]
+```
