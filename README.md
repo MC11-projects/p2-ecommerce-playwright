@@ -4,7 +4,7 @@ Full-stack serverless e-commerce application with AWS backend and comprehensive 
 
 **Tech Stack:** JavaScript, Playwright, AWS (Lambda, DynamoDB, API Gateway, Cognito, S3, CloudFront), GitHub Actions CI/CD, Allure reporting
 
-**Test Coverage:** 57 tests (18 auth + 14 deals + 10 cart + 15 checkout)
+**Test Coverage:** 57 tests (18 auth + 14 deals + 11 cart + 14 checkout)
 
 ---
 
@@ -56,8 +56,8 @@ Full-stack serverless e-commerce application with AWS backend and comprehensive 
 ### Test Coverage by Feature
 - **Authentication (18 tests)** - Login, logout, signup, session persistence
 - **Deals (14 tests)** - UI display, modals, stock limits, expired/sold-out states, API contract validation
-- **Cart (10 tests)** - Add/remove items, quantity controls, persistence, validation, cross-tab sync
-- **Checkout (15 tests)** - Happy path, field validation, card validation, voucher application/removal, edge cases (negative balance, cart manipulation)
+- **Cart (11 tests)** - Add/remove items, quantity controls, persistence, validation, cross-tab sync
+- **Checkout (14 tests)** - Happy path, field validation, card validation, voucher application/removal, edge cases (negative balance, cart manipulation)
 
 ---
 
