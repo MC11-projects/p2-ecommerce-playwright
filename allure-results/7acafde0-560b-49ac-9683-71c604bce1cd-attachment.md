@@ -1,0 +1,89 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "🎁 DailyDeals" [ref=e5] [cursor=pointer]:
+      - /url: index.html
+      - heading "🎁 DailyDeals" [level=1] [ref=e6]
+  - main [ref=e7]:
+    - generic [ref=e8]:
+      - heading "Checkout" [level=1] [ref=e9]
+      - generic [ref=e10]:
+        - generic [ref=e11]:
+          - heading "Order Summary" [level=2] [ref=e12]
+          - generic [ref=e14]:
+            - img "Adventure Park Day Pass" [ref=e15]
+            - generic [ref=e16]:
+              - generic [ref=e17]: Adventure Park Day Pass
+              - generic [ref=e18]: "Quantity: 1"
+            - generic [ref=e19]: $35.00
+            - button "✕" [ref=e20] [cursor=pointer]
+          - generic [ref=e21]:
+            - generic [ref=e22]:
+              - generic [ref=e23]: "Subtotal:"
+              - generic [ref=e24]: $35.00
+            - generic [ref=e25]:
+              - generic [ref=e26]: "Discount:"
+              - generic [ref=e27]: "-$3.50"
+            - generic [ref=e28]:
+              - generic [ref=e29]: "Total:"
+              - generic [ref=e30]: $31.50
+        - generic [ref=e31]:
+          - heading "Payment Information" [level=2] [ref=e32]
+          - generic [ref=e33]:
+            - heading "Have a voucher code?" [level=3] [ref=e34]
+            - generic [ref=e35]:
+              - textbox "Enter code" [disabled] [ref=e36]: WELCOME10
+              - button "Apply" [disabled] [ref=e37] [cursor=pointer]
+              - button "Remove" [ref=e38] [cursor=pointer]
+            - generic [ref=e40]: Voucher applied! 10% off
+          - generic [ref=e41]:
+            - generic [ref=e42]:
+              - generic [ref=e43]: Full Name *
+              - textbox "Full Name *" [ref=e44]:
+                - /placeholder: John Doe
+            - generic [ref=e45]:
+              - generic [ref=e46]: Email *
+              - textbox "Email *" [ref=e47]:
+                - /placeholder: john@example.com
+            - generic [ref=e48]:
+              - generic [ref=e49]: Shipping Address *
+              - textbox "Shipping Address *" [ref=e50]:
+                - /placeholder: 123 Main Street
+            - generic [ref=e51]:
+              - generic [ref=e52]: City *
+              - textbox "City *" [ref=e53]:
+                - /placeholder: New York
+            - generic [ref=e54]:
+              - generic [ref=e55]:
+                - generic [ref=e56]: State/Province *
+                - textbox "State/Province *" [ref=e57]:
+                  - /placeholder: NY
+              - generic [ref=e58]:
+                - generic [ref=e59]: ZIP/Postal Code *
+                - textbox "ZIP/Postal Code *" [ref=e60]:
+                  - /placeholder: "12345"
+            - heading "Payment Information" [level=3] [ref=e61]
+            - generic [ref=e62]:
+              - generic [ref=e63]: Card Number *
+              - textbox "Card Number *" [ref=e64]:
+                - /placeholder: 1234 5678 9012 3456
+            - generic [ref=e65]:
+              - generic [ref=e66]: Cardholder Name *
+              - textbox "Cardholder Name *" [ref=e67]:
+                - /placeholder: Name on card
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - generic [ref=e70]: Expiry Date *
+                - textbox "Expiry Date *" [ref=e71]:
+                  - /placeholder: MM/YY
+              - generic [ref=e72]:
+                - generic [ref=e73]: CVV *
+                - textbox "CVV *" [ref=e74]:
+                  - /placeholder: "123"
+            - generic [ref=e75]:
+              - link "Back to Shopping" [ref=e76] [cursor=pointer]:
+                - /url: index.html
+              - button "Complete Purchase" [ref=e77] [cursor=pointer]
+```

@@ -1,3 +1,5 @@
+import { expect } from '@playwright/test'
+
 export class CheckoutPage {
     constructor(page) {
        this.page = page
@@ -14,6 +16,11 @@ export class CheckoutPage {
        this.checkoutVoucherSectionTitle = page.locator('.voucher-section')
        this.checkoutVoucherInput = page.locator('#voucherInput')
        this.checkoutVoucherApplyButton = page.locator('#applyVoucherBtn')
+       this.checkoutVoucherMessage = page.locator('#voucherMessage')
+       this.checkoutRemoveVoucher = page.locator('#removeVoucherBtn')
+       this.checkoutDiscount = page.locator('#discountRow')
+       this.checkoutDiscountAmount = page.locator('#discountAmount')
+       this.checkoutTotalAmount = page.locator('#totalAmount')
        this.checkoutFormCustomerName = page.locator('#customerName')
        this.checkoutFormCustomerEmail = page.locator('#customerEmail')
        this.checkoutFormCustomerAddress = page.locator('#customerAddress')   
@@ -24,7 +31,7 @@ export class CheckoutPage {
        this.checkoutFormCardName = page.locator('#cardName')    
        this.checkoutFormCardExpiryDate = page.locator('#cardExpiry')     
        this.checkoutFormCardCVV = page.locator('#cardCVV')
-       this.checkoutBackButton = page.locator('.btn.btn-secondary')   
+       this.checkoutBackButton = page.getByText('Back to Shopping')   
        this.checkoutCompletePurchaseButton = page.locator('.btn.btn-primary')
     }
 
@@ -55,6 +62,12 @@ export class CheckoutPage {
         await this.checkoutVoucherInput.fill(code)
         await this.checkoutVoucherApplyButton.click()
     }
+
+    async removeVoucher(code) {
+        await this.checkoutVoucherInput.fill(code)
+        await this.checkoutVoucherApplyButton.click()
+        await this.checkoutRemoveVoucher.click()
+    }
     
     async completePurchase() {
         await this.checkoutCompletePurchaseButton.click()
@@ -66,5 +79,22 @@ export class CheckoutPage {
     
     async removeItem(index) {
         await this.checkoutItemRemoveButton.nth(index).click()
+    }
+
+    async verifyFieldError(fieldId, expectedMessage) {
+        await expect(this.page.locator(`#${fieldId}Error`)).toContainText(expectedMessage)
+}
+
+    async verifyAllRequiredFieldErrors() {
+        await this.verifyFieldError('customerName', 'Please enter a valid name (letters only).')
+        await this.verifyFieldError('customerEmail', 'Please enter a valid email address.')
+        await this.verifyFieldError('customerAddress', 'Please enter a valid address (5-200 characters).')
+        await this.verifyFieldError('customerCity', 'Please enter a valid city name.')
+        await this.verifyFieldError('customerState', 'Please enter a valid state/province.')
+        await this.verifyFieldError('customerZip', 'Please enter a valid ZIP/postal code.')
+        await this.verifyFieldError('cardNumber', 'Invalid card number. Must be 16 digits.')
+        await this.verifyFieldError('cardName', 'Please enter a valid cardholder name.')
+        await this.verifyFieldError('cardExpiry', 'Invalid expiry date. Use MM/YY format.')
+        await this.verifyFieldError('cardCVV', 'Invalid CVV. Must be 3 digits.')
     }
 }

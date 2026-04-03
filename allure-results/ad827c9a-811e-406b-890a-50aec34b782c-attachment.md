@@ -1,0 +1,89 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "🎁 DailyDeals" [ref=e5] [cursor=pointer]:
+      - /url: index.html
+      - heading "🎁 DailyDeals" [level=1] [ref=e6]
+  - main [ref=e7]:
+    - generic [ref=e8]:
+      - heading "Checkout" [level=1] [ref=e9]
+      - generic [ref=e10]:
+        - generic [ref=e11]:
+          - heading "Order Summary" [level=2] [ref=e12]
+          - generic [ref=e13]:
+            - generic [ref=e14]:
+              - generic [ref=e15]: "Subtotal:"
+              - generic [ref=e16]: $0.00
+            - generic [ref=e17]:
+              - generic [ref=e18]: "Discount:"
+              - generic [ref=e19]: "-$0.00"
+            - generic [ref=e20]:
+              - generic [ref=e21]: "Total:"
+              - generic [ref=e22]: $0.00
+        - generic [ref=e23]:
+          - heading "Payment Information" [level=2] [ref=e24]
+          - generic [ref=e25]:
+            - heading "Have a voucher code?" [level=3] [ref=e26]
+            - generic [ref=e27]:
+              - textbox "Enter code" [disabled] [ref=e28]: WELCOME10
+              - button "Apply" [disabled] [ref=e29] [cursor=pointer]
+              - button "Remove" [ref=e30] [cursor=pointer]
+            - generic [ref=e32]: Voucher applied! 10% off
+          - generic [ref=e33]:
+            - generic [ref=e34]:
+              - generic [ref=e35]: Full Name *
+              - textbox "Full Name *" [ref=e36]:
+                - /placeholder: John Doe
+            - generic [ref=e37]:
+              - generic [ref=e38]: Email *
+              - textbox "Email *" [ref=e39]:
+                - /placeholder: john@example.com
+            - generic [ref=e40]:
+              - generic [ref=e41]: Shipping Address *
+              - textbox "Shipping Address *" [ref=e42]:
+                - /placeholder: 123 Main Street
+            - generic [ref=e43]:
+              - generic [ref=e44]: City *
+              - textbox "City *" [ref=e45]:
+                - /placeholder: New York
+            - generic [ref=e46]:
+              - generic [ref=e47]:
+                - generic [ref=e48]: State/Province *
+                - textbox "State/Province *" [ref=e49]:
+                  - /placeholder: NY
+              - generic [ref=e50]:
+                - generic [ref=e51]: ZIP/Postal Code *
+                - textbox "ZIP/Postal Code *" [ref=e52]:
+                  - /placeholder: "12345"
+            - heading "Payment Information" [level=3] [ref=e53]
+            - generic [ref=e54]:
+              - generic [ref=e55]: Card Number *
+              - textbox "Card Number *" [ref=e56]:
+                - /placeholder: 1234 5678 9012 3456
+            - generic [ref=e57]:
+              - generic [ref=e58]: Cardholder Name *
+              - textbox "Cardholder Name *" [ref=e59]:
+                - /placeholder: Name on card
+            - generic [ref=e60]:
+              - generic [ref=e61]:
+                - generic [ref=e62]: Expiry Date *
+                - textbox "Expiry Date *" [ref=e63]:
+                  - /placeholder: MM/YY
+              - generic [ref=e64]:
+                - generic [ref=e65]: CVV *
+                - textbox "CVV *" [ref=e66]:
+                  - /placeholder: "123"
+            - generic [ref=e67]:
+              - link "Back to Shopping" [ref=e68] [cursor=pointer]:
+                - /url: index.html
+              - button "Complete Purchase" [ref=e69] [cursor=pointer]
+  - generic [ref=e70]:
+    - generic [ref=e71]:
+      - generic [ref=e72]: ℹ️
+      - generic [ref=e73]: Adventure Park Day Pass removed from cart
+    - generic [ref=e74]:
+      - generic [ref=e75]: ℹ️
+      - generic [ref=e76]: Your cart is empty. Redirecting...
+```

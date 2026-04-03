@@ -1,10 +1,10 @@
-Portfolio Project 2: Daily Deals E-Commerce Platform - IN PROGRESS
+Portfolio Project 2: Daily Deals E-Commerce Platform
 
-Full-stack serverless e-commerce application with AWS backend and comprehensive end-to-end test automation. Features authentication, real-time deal browsing, shopping cart with quantity controls, and checkout with form validation. Built with AWS Lambda, DynamoDB, API Gateway, Cognito for auth, and tested with Playwright using multiple test patterns (storageState, helper functions, POM).
+Full-stack serverless e-commerce application with AWS backend and comprehensive end-to-end test automation. Features authentication, real-time deal browsing, shopping cart with quantity controls, and multi-step checkout with voucher support and form validation. Built with AWS Lambda, DynamoDB, API Gateway, Cognito for auth, and tested with Playwright using multiple test patterns (storageState, helper functions, POM).
 
 **Tech Stack:** JavaScript, Playwright, AWS (Lambda, DynamoDB, API Gateway, Cognito, S3, CloudFront), GitHub Actions CI/CD, Allure reporting
 
-**Test Coverage:** 43 tests (18 auth + 14 deals + 10 cart + 1 checkout)
+**Test Coverage:** 57 tests (18 auth + 14 deals + 10 cart + 15 checkout)
 
 ---
 
@@ -16,32 +16,57 @@ Full-stack serverless e-commerce application with AWS backend and comprehensive 
 - Protected routes (checkout requires authentication)
 
 ### Deal Browsing
-- Real-time deal display with filtering and search
-- Stock tracking and sold-out states
-- Expiration handling
-- Deal details modal with quantity selection
+- Real-time deal display from DynamoDB
+- Stock tracking with sold-out and low-stock indicators
+- Expiration handling and expired deal states
+- Deal details modal with quantity selection and max quantity validation
+- Category display and deal metadata
 
 ### Shopping Cart
 - Add items with quantity validation (1-10 per purchase)
-- Update quantities, remove items
-- Session persistence (survives page reload)
-- Multi-item cart with live total calculation
+- Update quantities with +/- controls
+- Remove items from cart
+- Session persistence across page reloads
+- Multi-item cart with live subtotal calculation
+- Cart validation (removes expired/sold-out items automatically)
+- Cross-tab synchronization via localStorage
 
-### Checkout (In Progress)
-- Order summary display
-- Customer information and shipping address forms
-- Payment form with card validation
-- Field-level error messages
-- E2E checkout flow
+### Checkout
+- Order summary with item details and pricing
+- Customer information form (name, email)
+- Shipping address form (address, city, state, ZIP)
+- Payment form with card validation (number, name, expiry, CVV)
+- Field-level validation with inline error messages
+- Voucher code system (apply, remove, persistence)
+- Discount calculation with edge case handling (100% vouchers, negative totals)
+- Cart manipulation prevention (voucher cleared on cart empty)
+- Multi-tab race condition handling
+- E2E checkout flow with order submission
+
+---
+
+## Test Architecture
+
+### Test Patterns Demonstrated
+- **storageState pattern** (Auth tests) - Session persistence across tests
+- **Helper functions** (Checkout tests) - Reusable navigation logic
+- **beforeEach setup** (Deals, Cart tests) - Standard initialization
+- **Page Object Model** - All tests use POM for maintainability
+
+### Test Coverage by Feature
+- **Authentication (18 tests)** - Login, logout, signup, session persistence
+- **Deals (14 tests)** - UI display, modals, stock limits, expired/sold-out states, API contract validation
+- **Cart (10 tests)** - Add/remove items, quantity controls, persistence, validation, cross-tab sync
+- **Checkout (15 tests)** - Happy path, field validation, card validation, voucher application/removal, edge cases (negative balance, cart manipulation)
 
 ---
 
 ## Roadmap
 
-### Current Sprint
-- Complete checkout UI tests (form validation, error states, voucher application)
-- Checkout API tests (POST /orders validation)
+### Current Sprint (In Progress)
 - Order confirmation page and tests
+- Checkout API tests (POST /orders validation)
+- Deal search and filtering UI tests (search, category filter, sort options)
 
 ### Next Sprint
 - **Order Management**
@@ -50,12 +75,13 @@ Full-stack serverless e-commerce application with AWS backend and comprehensive 
   - Gifting flows (checkout gift option + post-purchase transfer)
 
 - **Testing & Infrastructure**
-  - Performance testing (k6 or JMeter)
+  - Performance testing (k6)
   - Terraform for infrastructure as code
-  - Grafana dashboards
+  - Grafana dashboards (with Prometheus)
 
 ### Future Enhancements
-- Email notifications (order confirmation, gifting)
+- Email notifications via SES (order confirmation, gifting)
+- Event-driven architecture with SQS
 - Admin dashboard for order management
-- Advanced voucher system (multiple discount types)
-- User profile page
+- Advanced voucher system (percentage + fixed amount discounts)
+- User profile page with order history

@@ -141,4 +141,23 @@ test.describe('Cart', () => {
         await expect(firstItem).toContainText('Adventure Park Day Pass')
         await expect(secondItem).toContainText('Spa Day Package - Luxury Retreat')
     })
+
+    test('Cross-Tab Desync', async ({page, context}) => {
+        await homePage.clickDealById('deal-006')
+        await cartModal.addToCartButton.click()
+        await expect(cartModal.cartHeaderCount).toContainText('1')
+       
+        const newPage = await context.newPage()
+        await newPage.goto(process.env.BASE_URL)
+        await newPage.waitForLoadState('networkidle')
+        await newPage.locator('#cartBtn').click()
+        const plusButton = newPage.locator('.quantity-btn').last()
+        for (let i = 0; i < 9; i++) {
+            await plusButton.click()
+    }
+        await page.bringToFront()
+        await cartModal.clickCart()
+        await cartModal.cartProceedToCheckout.click()
+        await expect(page.locator('#orderItems .order-item-quantity')).toContainText('Quantity: 10')
+    })
 })

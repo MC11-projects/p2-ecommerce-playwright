@@ -26,6 +26,29 @@ function showToast(message, type = 'success') {
     }, 3000);
 }
 
+// Field validation helpers
+function showFieldError(fieldId, message) {
+    const errorDiv = document.getElementById(`${fieldId}Error`);
+    if (errorDiv) {
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
+    }
+}
+
+function clearFieldError(fieldId) {
+    const errorDiv = document.getElementById(`${fieldId}Error`);
+    if (errorDiv) {
+        errorDiv.textContent = '';
+        errorDiv.style.display = 'none';
+    }
+}
+
+function clearAllFieldErrors() {
+    const errorFields = ['customerName', 'customerEmail', 'customerAddress', 'customerCity', 
+                        'customerState', 'customerZip', 'cardNumber', 'cardName', 'cardExpiry', 'cardCVV'];
+    errorFields.forEach(field => clearFieldError(field));
+}
+
 // Initialize checkout page
 document.addEventListener('DOMContentLoaded', () => {
     checkAuthentication();
@@ -70,6 +93,7 @@ async function checkAuthentication() {
 // Setup event listeners
 function setupEventListeners() {
     document.getElementById('applyVoucherBtn').addEventListener('click', applyVoucher);
+    document.getElementById('removeVoucherBtn').addEventListener('click', removeVoucher);
     document.getElementById('checkoutForm').addEventListener('submit', submitOrder);
     
     // Card number formatting (add spaces every 4 digits)
@@ -99,6 +123,16 @@ function loadCartFromStorage() {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
         cart = JSON.parse(savedCart);
+    }
+    
+    // Load applied voucher if exists
+    const savedVoucher = localStorage.getItem('appliedVoucher');
+    if (savedVoucher) {
+        appliedVoucher = JSON.parse(savedVoucher);
+        
+        // Restore voucher UI state
+        document.getElementById('voucherInput').value = appliedVoucher.code;
+        document.getElementById('voucherMessage').innerHTML = `<div class="voucher-message success">Voucher applied! ${appliedVoucher.discountPercent}% off</div>`;
     }
     
     // Note: Don't redirect here - let validation handle empty cart
@@ -188,9 +222,17 @@ function displayOrderSummary() {
         document.getElementById('discountRow').style.display = 'flex';
         document.getElementById('discountAmount').textContent = `-$${discount.toFixed(2)}`;
         
-        // Disable voucher input
+        // Disable voucher input and apply button, show remove button
         document.getElementById('voucherInput').disabled = true;
         document.getElementById('applyVoucherBtn').disabled = true;
+        document.getElementById('removeVoucherBtn').style.display = 'inline-block';
+    } else {
+        document.getElementById('discountRow').style.display = 'none';
+        
+        // Enable voucher input and apply button, hide remove button
+        document.getElementById('voucherInput').disabled = false;
+        document.getElementById('applyVoucherBtn').disabled = false;
+        document.getElementById('removeVoucherBtn').style.display = 'none';
     }
 }
 
@@ -199,19 +241,22 @@ function removeFromCheckout(index) {
     const removedItem = cart[index];
     cart.splice(index, 1);
     
-    // Update localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
-    
     // Show toast
     showToast(`${removedItem.title} removed from cart`, 'info');
     
     // If cart is empty, redirect to home
     if (cart.length === 0) {
+        // Clear both cart and voucher
+        localStorage.removeItem('cart');
+        localStorage.removeItem('appliedVoucher');
+        
         showToast('Your cart is empty. Redirecting...', 'info');
         setTimeout(() => {
             window.location.href = 'index.html';
         }, 1500);
     } else {
+        // Update localStorage with remaining items
+        localStorage.setItem('cart', JSON.stringify(cart));
         // Re-display order summary
         displayOrderSummary();
     }
@@ -244,23 +289,41 @@ async function applyVoucher() {
                 code: voucherCode,
                 discountPercent: data.voucher.discountPercent
             };
+            
+            // Save voucher to localStorage for persistence
+            localStorage.setItem('appliedVoucher', JSON.stringify(appliedVoucher));
+            
             messageDiv.innerHTML = `<div class="voucher-message success">Voucher applied! ${data.voucher.discountPercent}% off</div>`;
             displayOrderSummary(); // Refresh display
-            showToast('Voucher applied successfully!', 'success');
         } else {
             messageDiv.innerHTML = `<div class="voucher-message error">${data.error || 'Invalid voucher code'}</div>`;
-            showToast(data.error || 'Invalid voucher code', 'error');
         }
     } catch (error) {
         console.error('Error validating voucher:', error);
         messageDiv.innerHTML = '<div class="voucher-message error">Failed to validate voucher</div>';
-        showToast('Failed to validate voucher', 'error');
     }
+}
+
+// Remove voucher
+function removeVoucher() {
+    appliedVoucher = null;
+    localStorage.removeItem('appliedVoucher');
+    
+    document.getElementById('voucherInput').value = '';
+    document.getElementById('voucherInput').disabled = false;
+    document.getElementById('applyVoucherBtn').disabled = false;
+    document.getElementById('removeVoucherBtn').style.display = 'none';
+    document.getElementById('voucherMessage').innerHTML = '';
+    
+    displayOrderSummary(); // Refresh to remove discount
 }
 
 // Submit order
 async function submitOrder(event) {
     event.preventDefault();
+    
+    // Clear all previous errors
+    clearAllFieldErrors();
     
     const customerName = document.getElementById('customerName').value.trim();
     const customerEmail = document.getElementById('customerEmail').value.trim();
@@ -269,48 +332,50 @@ async function submitOrder(event) {
     const customerState = document.getElementById('customerState').value.trim();
     const customerZip = document.getElementById('customerZip').value.trim();
     
+    let hasErrors = false;
+    
     // Validate customer name (at least 2 characters, letters and spaces)
     if (customerName.length < 2 || !/^[a-zA-Z\s'-]+$/.test(customerName)) {
-        showToast('Please enter a valid name (letters only).', 'error');
-        return;
+        showFieldError('customerName', 'Please enter a valid name (letters only).');
+        hasErrors = true;
     }
     
-    // Validate email (basic check - HTML5 input type="email" already validates)
+    // Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(customerEmail)) {
-        showToast('Please enter a valid email address.', 'error');
-        return;
+        showFieldError('customerEmail', 'Please enter a valid email address.');
+        hasErrors = true;
     }
     
     // Validate address (not empty, reasonable length)
     if (customerAddress.length < 5 || customerAddress.length > 200) {
-        showToast('Please enter a valid address (5-200 characters).', 'error');
-        return;
+        showFieldError('customerAddress', 'Please enter a valid address (5-200 characters).');
+        hasErrors = true;
     }
     
     // Validate city (letters, spaces, hyphens only)
     if (customerCity.length < 2 || !/^[a-zA-Z\s'-]+$/.test(customerCity)) {
-        showToast('Please enter a valid city name.', 'error');
-        return;
+        showFieldError('customerCity', 'Please enter a valid city name.');
+        hasErrors = true;
     }
     
     // Validate state (2-50 characters, letters and spaces)
     if (customerState.length < 2 || customerState.length > 50 || !/^[a-zA-Z\s'-]+$/.test(customerState)) {
-        showToast('Please enter a valid state/province.', 'error');
-        return;
+        showFieldError('customerState', 'Please enter a valid state/province.');
+        hasErrors = true;
     }
     
     // Validate ZIP/postal code (alphanumeric, 3-10 characters for international support)
     if (customerZip.length < 3 || customerZip.length > 10 || !/^[a-zA-Z0-9\s-]+$/.test(customerZip)) {
-        showToast('Please enter a valid ZIP/postal code.', 'error');
-        return;
-    }
-    
-    // Ensure ZIP has at least 3 digits (catches random strings like "53ufuewit")
-    const digitCount = (customerZip.match(/\d/g) || []).length;
-    if (digitCount < 3) {
-        showToast('ZIP/postal code must contain at least 3 digits.', 'error');
-        return;
+        showFieldError('customerZip', 'Please enter a valid ZIP/postal code.');
+        hasErrors = true;
+    } else {
+        // Ensure ZIP has at least 3 digits
+        const digitCount = (customerZip.match(/\d/g) || []).length;
+        if (digitCount < 3) {
+            showFieldError('customerZip', 'ZIP/postal code must contain at least 3 digits.');
+            hasErrors = true;
+        }
     }
     
     // Get and validate card details
@@ -321,36 +386,41 @@ async function submitOrder(event) {
     
     // Validate cardholder name (at least 2 characters, letters and spaces)
     if (cardName.length < 2 || !/^[a-zA-Z\s'-]+$/.test(cardName)) {
-        showToast('Please enter a valid cardholder name.', 'error');
-        return;
+        showFieldError('cardName', 'Please enter a valid cardholder name.');
+        hasErrors = true;
     }
     
     // Validate card number (16 digits)
     if (cardNumber.length !== 16 || !/^\d+$/.test(cardNumber)) {
-        showToast('Invalid card number. Must be 16 digits.', 'error');
-        return;
+        showFieldError('cardNumber', 'Invalid card number. Must be 16 digits.');
+        hasErrors = true;
     }
     
     // Validate expiry date format and future date
     const expiryRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
     if (!expiryRegex.test(cardExpiry)) {
-        showToast('Invalid expiry date. Use MM/YY format.', 'error');
-        return;
-    }
-    
-    const [month, year] = cardExpiry.split('/');
-    const expiryDate = new Date(2000 + parseInt(year), parseInt(month) - 1);
-    const today = new Date();
-    today.setDate(1); // Compare from start of current month
-    
-    if (expiryDate < today) {
-        showToast('Card has expired.', 'error');
-        return;
+        showFieldError('cardExpiry', 'Invalid expiry date. Use MM/YY format.');
+        hasErrors = true;
+    } else {
+        const [month, year] = cardExpiry.split('/');
+        const expiryDate = new Date(2000 + parseInt(year), parseInt(month) - 1);
+        const today = new Date();
+        today.setDate(1); // Compare from start of current month
+        
+        if (expiryDate < today) {
+            showFieldError('cardExpiry', 'Card has expired.');
+            hasErrors = true;
+        }
     }
     
     // Validate CVV (3 digits)
     if (cardCVV.length !== 3 || !/^\d+$/.test(cardCVV)) {
-        showToast('Invalid CVV. Must be 3 digits.', 'error');
+        showFieldError('cardCVV', 'Invalid CVV. Must be 3 digits.');
+        hasErrors = true;
+    }
+    
+    // Stop if there are validation errors
+    if (hasErrors) {
         return;
     }
     
@@ -391,8 +461,9 @@ async function submitOrder(event) {
             // Save order to localStorage for confirmation page
             localStorage.setItem('lastOrder', JSON.stringify(data.order));
             
-            // Clear cart
+            // Clear cart and voucher
             localStorage.removeItem('cart');
+            localStorage.removeItem('appliedVoucher');
             
             // Redirect to confirmation page
             window.location.href = 'confirmation.html';
