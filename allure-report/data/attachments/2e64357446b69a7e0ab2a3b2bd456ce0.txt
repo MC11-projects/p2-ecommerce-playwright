@@ -1,0 +1,4 @@
+1. Cart at checkout page: [{"dealId":"deal-003","title":"Adventure Park Day Pass","price":35,"imageUrl":"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop","quantity":1,"maxQuantity":993}]
+2. Cart after back to homepage: [{"dealId":"deal-003","title":"Adventure Park Day Pass","price":35,"imageUrl":"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop","quantity":1,"maxQuantity":993}]
+3. Cart after opening modal: []
+4. Empty cart message visible? false
