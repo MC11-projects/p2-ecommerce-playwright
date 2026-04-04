@@ -9,7 +9,7 @@ test.describe('Signup Flow', () => {
         await signUpPage.goto()
     })
 
-    test('User can signup', async ({page}) => {
+    test('User can signup @smoke @auth @ui', async ({page}) => {
         const dynamicEmail = `test+${Date.now()}@example.com`
         await signUpPage.signUp('test test', dynamicEmail, process.env.TEST_USER_PASSWORD, process.env.TEST_USER_PASSWORD)
         await signUpPage.acceptTerms()
@@ -18,14 +18,14 @@ test.describe('Signup Flow', () => {
         await expect(page).toHaveURL(/.*index.html/)
     })
 
-    test('User tries to signup without agreeing to the Terms and Conditions', async ({page}) => {
+    test('User tries to signup without agreeing to the Terms and Conditions @auth @ui', async ({page}) => {
         const dynamicEmail = `test+${Date.now()}@example.com`
         await signUpPage.signUp('test test', dynamicEmail, process.env.TEST_USER_PASSWORD, process.env.TEST_USER_PASSWORD)
         await signUpPage.clickCreateAccount()
         await expect(signUpPage.termsError).toBeVisible()
     })
 
-    test('User inputs invalid email format', async () => {
+    test('User inputs invalid email format @auth @ui', async () => {
         await signUpPage.signUp('test test', 'test1', process.env.TEST_USER_PASSWORD, process.env.TEST_USER_PASSWORD)
         await signUpPage.clickCreateAccount()
         await expect(signUpPage.emailError).toBeVisible()
@@ -33,13 +33,13 @@ test.describe('Signup Flow', () => {
         
     })
 
-    test('User inputs passwords that do not match', async () => {
+    test('User inputs passwords that do not match @auth @ui', async () => {
         await signUpPage.signUp('test', process.env.TEST_USER_EMAIL, process.env.TEST_USER_PASSWORD, 'test')
         await signUpPage.clickCreateAccount()
         await expect(signUpPage.confirmPasswordError).toBeVisible()
         await expect(signUpPage.confirmPasswordError).toContainText('Passwords do not match')
     })
-    test('User tries to signup with empty fields', async() => {
+    test('User tries to signup with empty fields @auth @ui', async() => {
         await signUpPage.signUp('', '', '', '')
         await signUpPage.clickCreateAccount()
         await expect(signUpPage.nameError).toBeVisible()
@@ -52,7 +52,7 @@ test.describe('Signup Flow', () => {
         await expect(signUpPage.confirmPasswordError).toContainText('Please confirm your password')
     })
 
-    test('User tries to signup with a short password', async ({page}) => {
+    test('User tries to signup with a short password @auth @ui', async ({page}) => {
         // Tests short password
         await signUpPage.signUp('test test', process.env.TEST_USER_EMAIL, 'test', 'test')
         await signUpPage.clickCreateAccount()
@@ -60,7 +60,7 @@ test.describe('Signup Flow', () => {
         await expect(signUpPage.passwordError).toContainText('Password must be at least 8 characters')
     })
 
-    test('User tries to signup with a weak password', async () => {
+    test('User tries to signup with a weak password @auth @ui', async () => {
         //Tests password without lowercase, uppercase, or numbers (same error)
         await signUpPage.signUp('test test', process.env.TEST_USER_EMAIL, 'testtest', 'testtest')
         await signUpPage.clickCreateAccount()
@@ -68,7 +68,7 @@ test.describe('Signup Flow', () => {
         await expect(signUpPage.passwordError).toContainText('Password must contain uppercase, lowercase, and numbers')
     })
 
-    test('User tries to signup with an already registered email', async({page}) => {
+    test('User tries to signup with an already registered email @auth @ui', async({page}) => {
         await signUpPage.signUp('test test', process.env.TEST_USER_EMAIL, process.env.TEST_USER_PASSWORD, process.env.TEST_USER_PASSWORD)
         await signUpPage.acceptTerms()
         await signUpPage.clickCreateAccount()
@@ -78,7 +78,7 @@ test.describe('Signup Flow', () => {
         await expect (page.locator('#toastContainer .toast-message')).toHaveText('An account with this email already exists. Please sign in instead.')
     })
 
-    test('User can toggle password visibility', async () => {
+    test('User can toggle password visibility @auth @ui', async () => {
     await signUpPage.passwordInput.fill('Password123!')
 
     await expect(signUpPage.passwordInput).toHaveAttribute('type', 'password')
@@ -86,7 +86,7 @@ test.describe('Signup Flow', () => {
     await expect(signUpPage.passwordInput).toHaveAttribute('type', 'text')
 })
 
-    test('Terms and Conditions checkbox and link functionality', async({page, context}) => {
+    test('Terms and Conditions checkbox and link functionality @auth @ui', async({page, context}) => {
         await expect(signUpPage.termsCheckbox).toBeVisible()
         await expect(signUpPage.termsCheckbox).not.toBeChecked()
         await signUpPage.termsCheckbox.check()

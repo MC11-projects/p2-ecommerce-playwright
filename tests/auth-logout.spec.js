@@ -12,7 +12,7 @@ test.describe('Logout Flow', () => {
         loginPage = new LoginPage(page)
         })
     
-    test ('User can logout and login again', async ({page}) => {
+    test ('User can logout and login again @smoke @auth @ui', async ({page}) => {
         await homePage.logout()
         await expect (page.locator('#toastContainer .toast-message')).toHaveText('Logged out successfully')
         await expect(homePage.signInButton).toBeVisible()
@@ -21,13 +21,13 @@ test.describe('Logout Flow', () => {
         await expect (page.locator('#toastContainer .toast-message')).toHaveText('Login successful!')
         await expect(homePage.userMenu).toBeVisible()
     })
-    test('Direct checkout URL redirects to login after logout', async ({page}) => {
+    test('Direct checkout URL redirects to login after logout @auth @ui', async ({page}) => {
         await homePage.logout()
         await page.goto('/checkout.html')
         await expect(page).toHaveURL(/.*login.html/)
     })
 
-    test('Browser back button after logout does not bypass auth', async ({page}) => {
+    test('Browser back button after logout does not bypass auth @auth @ui', async ({page}) => {
         // Tests that after logout, back button doesn't bypass auth
         await page.goto('/checkout.html')
         await homePage.logout()

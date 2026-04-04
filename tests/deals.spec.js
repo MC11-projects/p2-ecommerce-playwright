@@ -9,7 +9,7 @@ test.describe('Deals', () => {
             await homePage.goto()
         })
 
-    test('Deals grid loads and displays deals', async () => {
+    test('Deals grid loads and displays deals @smoke @deals @ui', async () => {
         await expect(homePage.dealsGrid).toBeVisible()
         await expect(homePage.dealImage.first()).toBeVisible()
         await expect(homePage.dealCards.first()).toBeVisible()
@@ -17,12 +17,12 @@ test.describe('Deals', () => {
         expect(dealCount).toBeGreaterThan(0)
     })
 
-    test('Click deal opens modal', async () => {
+    test('Click deal opens modal @deals @ui', async () => {
         await homePage.dealCards.first().click()
         await expect(homePage.dealModal).toBeVisible()
     })
 
-    test('Deal modal displays all info', async () => {
+    test('Deal modal displays all info @deals @ui', async () => {
         await homePage.clickDealById('deal-003')
         await expect(homePage.dealModal).toBeVisible()
         await expect(homePage.dealModal).toContainText('Adventure Park')
@@ -31,27 +31,27 @@ test.describe('Deals', () => {
         await expect(homePage.addToCartButton).toBeVisible()
     })
 
-    test('Deal card displays correct info', async () => {
+    test('Deal card displays correct info @deals @ui', async () => {
         const deal = await homePage.getDealById('deal-003')
         await expect(deal).toContainText('Adventure Park')
         await expect(deal).toContainText('$35')
         await expect(deal).toContainText(/\d+ available/)
     })
 
-    test('Deal modal closing functionality', async () => {
+    test('Deal modal closing functionality @deals @ui', async () => {
         await homePage.clickDealById('deal-003')
         await homePage.modalCloseButton.click()
         await expect(homePage.dealModal).not.toBeVisible()
     })
 
-    test('Quantity selector increase', async () => {
+    test('Quantity selector increase @deals @ui', async () => {
         await homePage.clickDealById('deal-003')
         await expect(homePage.quantityInput).toHaveValue('1')
         await homePage.quantityInputPlusButton.click()
         await expect(homePage.quantityInput).toHaveValue('2')
     })
 
-    test('Quantity selector decrease', async () => {
+    test('Quantity selector decrease @deals @ui', async () => {
         await homePage.clickDealById('deal-003')
         await expect(homePage.quantityInput).toHaveValue('1')
         await homePage.quantityInputPlusButton.click()
@@ -62,7 +62,7 @@ test.describe('Deals', () => {
         await expect(homePage.quantityInput).toHaveValue('1')
     })
 
-    test('Add to cart', async ({page}) => {
+    test('Add to cart @smoke @deals @ui', async ({page}) => {
         await expect(homePage.cartHeaderCount).toContainText('0')
         await homePage.clickDealById('deal-003')
         await homePage.addToCartButton.click()
@@ -73,7 +73,7 @@ test.describe('Deals', () => {
         await expect(homePage.cartHeaderCount).toContainText('1')
     })
 
-    test('Expired deal', async () => {
+    test('Expired deal @deals @ui', async () => {
         await homePage.clickDealById('deal-005')
         await expect(homePage.dealModal).toContainText('This deal has expired')
         await expect(homePage.addToCartButton).not.toBeVisible()
@@ -83,7 +83,7 @@ test.describe('Deals', () => {
 
     })
 
-    test('Sold out deal', async () => {
+    test('Sold out deal @deals @ui', async () => {
         await homePage.clickDealById('deal-004')
         await expect(homePage.dealModal).toContainText('This deal is sold out')
         await expect(homePage.addToCartButton).not.toBeVisible()
@@ -92,7 +92,7 @@ test.describe('Deals', () => {
         await expect(homePage.quantityInputPlusButton).not.toBeVisible()
     })
 
-    test('Stock limit functionality', async () => {
+    test('Stock limit functionality @deals @ui', async () => {
         const lowStockDeal = await homePage.getDealById('deal-002')
         await expect(lowStockDeal).toContainText(/Only \d+ left!/)
         await homePage.clickDealById('deal-002')
@@ -101,7 +101,7 @@ test.describe('Deals', () => {
         await expect(homePage.addToCartButton).toBeDisabled()
     })
 
-    test('GET deals response structure via API', async ({request}) => {
+    test('GET deals response structure via API @deals @api', async ({request}) => {
         const response = await request.get(`${process.env.API_BASE_URL}/deals`)
         
         expect(response.status()).toBe(200)
@@ -127,7 +127,7 @@ test.describe('Deals', () => {
         })
     })
 
-    test('Verify deal-005 is expired in API', async ({request}) => {
+    test('Verify deal-005 is expired in API @deals @api', async ({request}) => {
         const response = await request.get(`${process.env.API_BASE_URL}/deals`)
         const data = await response.json()
         

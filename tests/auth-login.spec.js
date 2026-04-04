@@ -11,7 +11,7 @@ test.describe('Authentication', () => {
         await loginPage.goto()
     })
      
-    test('Login with valid credentials', async ({page, request}) => {
+    test('Login with valid credentials @smoke @auth @ui', async ({page, request}) => {
         await loginPage.login(process.env.TEST_USER_EMAIL, process.env.TEST_USER_PASSWORD)
 
         await expect (page.locator('#toastContainer .toast-message')).toHaveText('Login successful!')
@@ -24,7 +24,7 @@ test.describe('Authentication', () => {
     })
 
 
-    test('Login with invalid email credential', async ({page}) => {
+    test('Login with invalid email credential @auth @ui', async ({page}) => {
         await loginPage.login('testemail', process.env.TEST_USER_PASSWORD)
             
         await expect(loginPage.emailError).toBeVisible()
@@ -32,7 +32,7 @@ test.describe('Authentication', () => {
         await expect(page).toHaveURL(/.*login.html/)
     })
 
-    test('Login with no email credential', async ({page}) => {
+    test('Login with no email credential @auth @ui', async ({page}) => {
         await loginPage.login('', process.env.TEST_USER_PASSWORD)
             
         await expect(loginPage.emailError).toBeVisible()
@@ -40,7 +40,7 @@ test.describe('Authentication', () => {
         await expect(page).toHaveURL(/.*login.html/)
     })
 
-    test('Login with invalid password credentials', async ({page}) => {
+    test('Login with invalid password credentials @auth @ui', async ({page}) => {
         await loginPage.login(process.env.TEST_USER_EMAIL, 'testpassword')
             
         await expect (page.locator('#toastContainer .toast-message')).toHaveText('Incorrect password. Please try again.')
@@ -49,7 +49,7 @@ test.describe('Authentication', () => {
         await expect(page).toHaveURL(/.*login.html/)
     })
 
-    test('Login with no password', async ({page}) => {
+    test('Login with no password @auth @ui', async ({page}) => {
         await loginPage.login(process.env.TEST_USER_EMAIL, '')
             
         await expect(loginPage.passwordError).toBeVisible()

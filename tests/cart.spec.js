@@ -12,7 +12,7 @@ test.describe('Cart', () => {
             await homePage.goto()
     })
 
-    test('Empty cart functionality', async () => {
+    test('Empty cart functionality @cart @ui', async () => {
         await cartModal.clickCart()
         await expect(cartModal.cartTitle).toContainText('Shopping Cart')
         await expect(cartModal.cartModalEmpty).toBeVisible()
@@ -20,7 +20,7 @@ test.describe('Cart', () => {
         await expect(cartModal.cartModalEmpty).toContainText('Add some amazing deals to get started!')
     })
 
-    test('User can view cart', async () => {
+    test('User can view cart @smoke @cart @ui', async () => {
         await homePage.clickDealById('deal-003')
         await cartModal.addToCartButton.click()
         await cartModal.clickCart()
@@ -36,7 +36,7 @@ test.describe('Cart', () => {
         expect(totalText).toMatch(/Total:\s*\$\d+\.\d{2}/)
     })
 
-    test('User can close the cart modal', async () => {
+    test('User can close the cart modal @cart @ui', async () => {
         await homePage.clickDealById('deal-003')
         await cartModal.addToCartButton.click()
         await cartModal.clickCart()
@@ -47,7 +47,7 @@ test.describe('Cart', () => {
         await expect(cartModal.cartItemTitle).toContainText('Adventure Park Day Pass')
     })
 
-    test('User can update quantity of deals in cart', async () => {
+    test('User can update quantity of deals in cart @cart @ui', async () => {
         // To find a way to not rely on hardcoded checks
         await homePage.clickDealById('deal-003')
         await cartModal.addToCartButton.click()
@@ -65,7 +65,7 @@ test.describe('Cart', () => {
         await expect(cartModal.cartItemPrice).toContainText('$35 × 1 = $35.00')
     })
 
-    test('Cart totals updates when quantity changes', async () => {
+    test('Cart totals updates when quantity changes @cart @ui', async () => {
         // To find a way to not rely on hardcoded checkss
         await homePage.clickDealById('deal-003')
         await cartModal.addToCartButton.click()
@@ -83,7 +83,7 @@ test.describe('Cart', () => {
         await expect(cartModal.cartSummaryTotal).toContainText('$35.00')
     })
 
-    test('User can remove items and see empty cart state', async () => {
+    test('User can remove items and see empty cart state @cart @ui', async () => {
         await homePage.clickDealById('deal-003')
         await cartModal.addToCartButton.click()
         await cartModal.clickCart()
@@ -92,7 +92,7 @@ test.describe('Cart', () => {
         await expect(homePage.cartHeaderCount).toContainText('0') 
     })
 
-    test('Quantity cannot exceed the maximum limit of 10', async () => {
+    test('Quantity cannot exceed the maximum limit of 10 @cart @ui', async () => {
         await homePage.clickDealById('deal-003')
         await homePage.quantityInput.fill('10')
         await cartModal.addToCartButton.click()
@@ -103,7 +103,7 @@ test.describe('Cart', () => {
         await expect(cartModal.cartQuantityDisplay).toHaveText('10')
     })
 
-    test('Quantity cannot go below 1', async () => {
+    test('Quantity cannot go below 1 @cart @ui', async () => {
         await homePage.clickDealById('deal-003')
         await cartModal.addToCartButton.click()
         await cartModal.clickCart()
@@ -112,7 +112,7 @@ test.describe('Cart', () => {
         await expect(cartModal.cartQuantityMinus).toBeDisabled()
     })
 
-    test('Multi deal interaction', async () => {
+    test('Multi deal interaction @cart @ui', async () => {
         await homePage.clickDealById('deal-003')
         await cartModal.addToCartButton.click()
         await homePage.clickDealById('deal-001')
@@ -127,7 +127,7 @@ test.describe('Cart', () => {
         expect(totalText).toMatch(/Total:\s*\$\d+\.\d{2}/)
     })
 
-    test('Session Persistence', async ({page}) => {
+    test('Session Persistence @cart @ui', async ({page}) => {
         await homePage.clickDealById('deal-003')
         await cartModal.addToCartButton.click()
         await homePage.clickDealById('deal-001')
@@ -142,7 +142,7 @@ test.describe('Cart', () => {
         await expect(secondItem).toContainText('Spa Day Package - Luxury Retreat')
     })
 
-    test('Cross-Tab Desync', async ({page, context}) => {
+    test('Cross-Tab Desync @cart @ui', async ({page, context}) => {
         await homePage.clickDealById('deal-006')
         await cartModal.addToCartButton.click()
         await expect(cartModal.cartHeaderCount).toContainText('1')

@@ -13,7 +13,7 @@ test.describe('Checkout', () => {
         checkoutPage = new CheckoutPage(page)
     })
 
-    test('Complete checkout happy path', async ({page}) => {
+    test('Complete checkout happy path @smoke @e2e @checkout @ui', async ({page}) => {
         await navigateToCheckout(page)
         await expect(page.locator('#orderItems .order-item')).toBeVisible()
         
@@ -25,14 +25,14 @@ test.describe('Checkout', () => {
         
     })
 
-    test('Required field validation', async ({page}) => {
+    test('Required field validation @checkout @ui', async ({page}) => {
         await navigateToCheckout(page)
         await expect(page.locator('#orderItems .order-item')).toBeVisible()
         await checkoutPage.completePurchase()
         await checkoutPage.verifyAllRequiredFieldErrors()
     })
 
-    test('Invalid email validation', async ({page}) => {
+    test('Invalid email validation @checkout @ui', async ({page}) => {
         await navigateToCheckout(page)
         await expect(page.locator('#orderItems .order-item')).toBeVisible()
         
@@ -42,7 +42,7 @@ test.describe('Checkout', () => {
         await checkoutPage.verifyFieldError('customerEmail', 'Please enter a valid email address.')
     })
 
-    test('Invalid card number validation', async ({page}) => {
+    test('Invalid card number validation @checkout @ui', async ({page}) => {
         await navigateToCheckout(page)
         await expect(page.locator('#orderItems .order-item')).toBeVisible()
         
@@ -54,7 +54,7 @@ test.describe('Checkout', () => {
         await checkoutPage.verifyFieldError('cardNumber', 'Invalid card number. Must be 16 digits.')
     })
 
-    test('Expired card usage', async ({page}) => {
+    test('Expired card usage @checkout @ui', async ({page}) => {
         await navigateToCheckout(page)
         await expect(page.locator('#orderItems .order-item')).toBeVisible()
         
@@ -66,7 +66,7 @@ test.describe('Checkout', () => {
         await checkoutPage.verifyFieldError('cardExpiry', 'Card has expired.')
     })
 
-    test('Invalid CVV', async ({page}) => {
+    test('Invalid CVV @checkout @ui', async ({page}) => {
         await navigateToCheckout(page)
         await expect(page.locator('#orderItems .order-item')).toBeVisible()
         
@@ -78,7 +78,7 @@ test.describe('Checkout', () => {
         await checkoutPage.verifyFieldError('cardCVV', 'Invalid CVV. Must be 3 digits.')
     })
 
-    test('Applying valid voucher code', async ({page}) => {
+    test('Applying valid voucher code @checkout @vouchers @ui', async ({page}) => {
         await navigateToCheckout(page)
         await expect(page.locator('#orderItems .order-item')).toBeVisible()
         
@@ -93,7 +93,7 @@ test.describe('Checkout', () => {
         await expect(page.locator('.confirmation-content')).toContainText('Order Confirmed!')
     })
 
-    test('Applying expired voucher code', async ({page}) => {
+    test('Applying expired voucher code @checkout @vouchers @ui', async ({page}) => {
         await navigateToCheckout(page)
         await expect(page.locator('#orderItems .order-item')).toBeVisible()
         
@@ -102,7 +102,7 @@ test.describe('Checkout', () => {
         await expect(checkoutPage.checkoutDiscount).toBeHidden()
     })
 
-    test('Applying used voucher code', async ({page}) => {
+    test('Applying used voucher code @checkout @vouchers @ui', async ({page}) => {
         await navigateToCheckout(page)
         await expect(page.locator('#orderItems .order-item')).toBeVisible()
 
@@ -111,7 +111,7 @@ test.describe('Checkout', () => {
         await expect(checkoutPage.checkoutDiscount).toBeHidden()
     })
 
-     test('Remove voucher code', async ({page}) => {
+     test('Remove voucher code @checkout @vouchers @ui', async ({page}) => {
         await navigateToCheckout(page)
         await expect(page.locator('#orderItems .order-item')).toBeVisible()
 
@@ -119,7 +119,7 @@ test.describe('Checkout', () => {
         await expect(checkoutPage.checkoutDiscount).toBeHidden()
     })
 
-    test('Cart persists after back button', async ({page}) => {
+    test('Cart persists after back button @checkout @ui', async ({page}) => {
         cartModal = new CartModal(page)
         homePage = new HomePage(page)
         await navigateToCheckout(page)
@@ -132,7 +132,7 @@ test.describe('Checkout', () => {
         await expect(checkoutPage.checkoutItemPrice).toBeVisible()
     })
 
-    test('Remove item from checkout', async ({page}) => {
+    test('Remove item from checkout @checkout @ui', async ({page}) => {
         await navigateToCheckout(page)
         
         await expect(checkoutPage.checkoutItemTitle).toBeVisible()
@@ -142,7 +142,7 @@ test.describe('Checkout', () => {
         await expect(page).toHaveURL(/.*index.html/)
     })
 
-    test('Negative balance check via voucher', async ({page}) => {
+    test('Negative balance check via voucher @checkout @vouchers @ui', async ({page}) => {
         await navigateToCheckout(page)
         await expect(page.locator('#orderItems .order-item')).toBeVisible()
         
@@ -152,7 +152,7 @@ test.describe('Checkout', () => {
         await expect(checkoutPage.checkoutTotalAmount).toContainText('$0.00')
     })
 
-    test('Voucher check upon deal removal from checkout', async ({page}) => {
+    test('Voucher check upon deal removal from checkout @checkout @vouchers @ui @slow', async ({page}) => {
         cartModal = new CartModal(page)
         homePage = new HomePage(page)
 
