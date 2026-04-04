@@ -47,7 +47,6 @@ function loadOrderDetails() {
         document.getElementById('orderDiscount').textContent = `-$${order.discount.toFixed(2)}`;
     }
     
-    // Clear the order from storage after displaying (optional - prevents refreshing to see same order)
-    // Uncomment if you want the confirmation to only show once
-    // localStorage.removeItem('lastOrder');
+    // Clear the order from storage after displaying (prevents refreshing to see same order)
+    localStorage.removeItem('lastOrder');
 }

@@ -455,7 +455,30 @@ async function submitOrder(event) {
             body: JSON.stringify(orderData)
         });
         
+        console.log('Response status:', response.status);
+        console.log('Response ok:', response.ok);
+        
         const data = await response.json();
+        console.log('Response data:', data);
+        
+        // Handle expired/invalid token (API Gateway returns 403 for invalid tokens)
+        if (response.status === 401 || response.status === 403) {
+            console.log('🔴 AUTH ERROR HANDLER TRIGGERED:', response.status);
+            
+            // Sign out user completely (clears localStorage + Cognito session)
+            auth.signOut();
+            
+            // Show user-friendly message
+            showToast('Your session has expired. Please log in again.', 'error');
+            
+            // Redirect after short delay so user can see the message
+            setTimeout(() => {
+                window.location.href = `login.html?redirect=checkout.html&reason=expired`;
+            }, 2000);
+            
+            // Stop execution
+            return;
+        }
         
         if (response.ok) {
             // Save order to localStorage for confirmation page
@@ -468,12 +491,13 @@ async function submitOrder(event) {
             // Redirect to confirmation page
             window.location.href = 'confirmation.html';
         } else {
+            console.log('🟡 OTHER ERROR HANDLER:', response.status);
             showToast(data.error || 'Order failed. Please try again.', 'error');
             submitBtn.disabled = false;
             submitBtn.textContent = 'Complete Purchase';
         }
     } catch (error) {
-        console.error('Error creating order:', error);
+        console.error('🔴 CATCH BLOCK ERROR:', error);
         showToast('Failed to create order. Please try again.', 'error');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Complete Purchase';

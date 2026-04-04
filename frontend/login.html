@@ -105,10 +105,24 @@
 
         // Check if already logged in
         auth.isAuthenticated().then(isAuth => {
-            if (isAuth) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const reason = urlParams.get('reason');
+            
+            console.log('🔍 LOGIN PAGE AUTH CHECK:', { isAuth, reason });
+            
+            // Show session expired message if redirected due to expired token
+            if (reason === 'expired') {
+                showToast('Your session has expired. Please log in again.', 'error');
+            }
+            
+            // Don't auto-redirect if user was forced to login due to expired token
+            if (isAuth && reason !== 'expired') {
+                console.log('✅ Auto-redirecting (already authenticated, not expired)');
                 // Redirect to home or intended page
-                const redirectTo = new URLSearchParams(window.location.search).get('redirect') || 'index.html';
+                const redirectTo = urlParams.get('redirect') || 'index.html';
                 window.location.href = redirectTo;
+            } else {
+                console.log('🛑 NOT auto-redirecting:', { isAuth, reason });
             }
         });
 
