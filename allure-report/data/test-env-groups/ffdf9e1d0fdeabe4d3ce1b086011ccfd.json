@@ -1,0 +1,1 @@
+{"id":"ffdf9e1d0fdeabe4d3ce1b086011ccfd","fullName":"api-checkout.spec.js:194:9","name":"POST /orders with valid voucher applies discount @api @checkout @voucher","status":"failed","testResultsByEnv":{"default":"2f3c3ef758cefdd7e38e8d78b37541ea"}}

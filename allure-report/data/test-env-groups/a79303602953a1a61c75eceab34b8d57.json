@@ -1,0 +1,1 @@
+{"id":"a79303602953a1a61c75eceab34b8d57","fullName":"api-checkout.spec.js:86:9","name":"POST /orders with missing customer name returns 400 @api @checkout","status":"passed","testResultsByEnv":{"default":"17e69553e6d00b0444e611febe80bd46"}}

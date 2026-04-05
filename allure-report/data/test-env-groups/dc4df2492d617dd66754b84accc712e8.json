@@ -1,0 +1,1 @@
+{"id":"dc4df2492d617dd66754b84accc712e8","fullName":"api-checkout.spec.js:104:9","name":"POST /orders with missing customer email returns 400 @api @checkout","status":"failed","testResultsByEnv":{"default":"9ff8567bdb8c63cb3fb1c362ee590527"}}

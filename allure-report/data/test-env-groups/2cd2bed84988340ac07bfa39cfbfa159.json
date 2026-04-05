@@ -1,0 +1,1 @@
+{"id":"2cd2bed84988340ac07bfa39cfbfa159","fullName":"api-checkout.spec.js:140:9","name":"POST /orders with non-existent deal returns 404 @api @checkout","status":"failed","testResultsByEnv":{"default":"e8c41d242df756c96bc068cf7637924e"}}

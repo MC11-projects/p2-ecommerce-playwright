@@ -1,1 +1,1 @@
-{"id":"3b3b11ffc6921ef30bf3d0ebf1876c01","fullName":"auth-signup.spec.js:42:9","name":"User tries to signup with empty fields @auth @ui","status":"passed","testResultsByEnv":{"default":"e7f4bdbffdea93f6f4a22800ee3a2d06"}}
+{"id":"3b3b11ffc6921ef30bf3d0ebf1876c01","fullName":"auth-signup.spec.js:42:9","name":"User tries to signup with empty fields @auth @ui","status":"passed","testResultsByEnv":{"default":"c00a5673f6a1286502ae336f253174ea"}}

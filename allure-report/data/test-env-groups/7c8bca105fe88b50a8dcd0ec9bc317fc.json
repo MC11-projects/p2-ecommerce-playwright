@@ -1,0 +1,1 @@
+{"id":"7c8bca105fe88b50a8dcd0ec9bc317fc","fullName":"api-checkout.spec.js:11:9","name":"Valid order creation returns 201 @api @checkout @smoke","status":"failed","testResultsByEnv":{"default":"f1fe8ee3844b07f8fb736dff0230c0d5"}}

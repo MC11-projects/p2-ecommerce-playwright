@@ -1,0 +1,1 @@
+{"id":"939cd6c6303ebf4d74a7d6ea749f1f74","fullName":"api-checkout.spec.js:54:9","name":"POST /orders with missing authorization header returns 401 @api @checkout","status":"passed","testResultsByEnv":{"default":"06b11e411937b5ccb0c5598542a3ea31"}}
