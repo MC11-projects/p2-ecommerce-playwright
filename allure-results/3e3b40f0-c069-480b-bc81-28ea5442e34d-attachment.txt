@@ -1,0 +1,14 @@
+Status: 502
+Response body: {"message": "Internal server error"}
+Response headers: {
+  date: 'Sun, 05 Apr 2026 20:12:13 GMT',
+  'content-type': 'application/json',
+  'content-length': '36',
+  connection: 'keep-alive',
+  'x-amzn-requestid': 'cb15513b-5597-47ef-8dd5-9d24c5577b37',
+  'access-control-allow-origin': 'https://d31p8cguca5y8k.cloudfront.net',
+  'access-control-allow-headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
+  'x-amzn-errortype': 'InternalServerErrorException',
+  'x-amz-apigw-id': 'bXNEkG3HoAMEcWA=',
+  'access-control-allow-methods': 'OPTIONS,POST'
+}

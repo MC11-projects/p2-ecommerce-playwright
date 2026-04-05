@@ -170,30 +170,6 @@ test.describe('Checkout', () => {
         await expect(checkoutPage.checkoutDiscount).not.toBeVisible()
     })
 
-    test('POST /orders with invalid token returns 401 @api @checkout', async ({request}) => {
-        const response = await request.post(`${process.env.API_BASE_URL}/orders`, {
-            headers: {
-            'Authorization': 'Bearer invalid.token.here'
-            },
-            data: {
-                items: [{ dealId: 'deal-003', quantity: 1 }],
-                customerName: 'Test User',
-                customerEmail: 'test@example.com',
-                shippingAddress: {
-                    address: '123 Test St',
-                    city: 'City',
-                    state: 'State',
-                    zip: '12345'
-                }
-            }
-        })
-    
-        expect(response.status()).toBe(401)
-        const data = await response.json()
-        expect(data).toHaveProperty('message')
-        expect(data.message).toBe('Unauthorized')
-    })
-
     test('Expired token during checkout redirects to login @checkout @ui', async ({page}) => {
         await page.goto(process.env.BASE_URL)
         await expect(page).toHaveURL(process.env.BASE_URL)

@@ -15,6 +15,7 @@ export class ConfirmationPage {
         this.orderDiscountAmount = page.locator('#orderDiscount')
         this.confirmationEmailText = page.locator('.confirmation-page p').filter({ hasText: 'confirmation email' })
         this.continueShoppingButton = page.locator('.confirmation-actions')
+        this.headerHomeButton = page.locator('.logo')
     }
 
     async assertConfirmationPageInformation(expectedName, expectedEmail, expectedItemName) {

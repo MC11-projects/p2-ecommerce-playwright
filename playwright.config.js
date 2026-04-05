@@ -48,7 +48,7 @@ export default defineConfig({
 
     {
       name: 'setup',
-      testMatch: /.*\.setup\.js/
+      testMatch: /.*\.setup\.js/,
     },
 
     {
@@ -61,7 +61,15 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'], storageState: '.auth/user.json' },
       dependencies: ['setup'],
-      testIgnore: /.*auth-(login|signup)\.spec\.js/
+      testIgnore: [/.*auth-(login|signup)\.spec\.js/,
+      /.*api-.*\.spec\.js/ 
+      ]
+    },
+
+    {
+      name: 'api',
+      dependencies: ['setup'],
+      testMatch: /.*api-.*\.spec\.js/
     },
     
 
