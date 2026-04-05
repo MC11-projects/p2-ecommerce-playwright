@@ -13,7 +13,8 @@
     "test:cart": "playwright test --grep @cart",
     "test:checkout": "playwright test --grep @checkout",
     "test:vouchers": "playwright test --grep @vouchers",
-    "test:slow": "playwright test --grep @slow"
+    "test:slow": "playwright test --grep @slow",
+    "test:filters": "playwright test --grep @filters"
   },
   "keywords": [],
   "author": "",

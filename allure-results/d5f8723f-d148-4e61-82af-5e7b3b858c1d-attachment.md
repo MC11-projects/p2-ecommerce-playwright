@@ -1,0 +1,45 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - heading "🎁 DailyDeals" [level=1] [ref=e5]
+      - generic [ref=e6]:
+        - button "Toggle dark mode" [ref=e7] [cursor=pointer]: 🌙
+        - button "👤 test test" [ref=e9] [cursor=pointer]:
+          - generic [ref=e10]: 👤
+          - generic [ref=e11]: test test
+        - button "🛒 Cart (0)" [ref=e12] [cursor=pointer]
+  - main [ref=e13]:
+    - generic [ref=e14]:
+      - textbox "Search deals" [ref=e16]:
+        - /placeholder: Search deals...
+      - generic [ref=e17]:
+        - combobox "Filter by category" [ref=e18] [cursor=pointer]:
+          - option "All Categories"
+          - option "Wellness" [selected]
+          - option "Food"
+          - option "Activities"
+          - option "Services"
+          - option "Entertainment"
+        - combobox "Sort deals" [ref=e19] [cursor=pointer]:
+          - option "Newest First" [selected]
+          - option "Highest Discount"
+          - 'option "Price: Low to High"'
+          - 'option "Price: High to Low"'
+          - option "Expiring Soon"
+    - generic [ref=e21] [cursor=pointer]:
+      - img "Spa Day Package - Luxury Retreat" [ref=e22]
+      - generic [ref=e23]:
+        - generic [ref=e24]: Wellness
+        - heading "Spa Day Package - Luxury Retreat" [level=3] [ref=e25]
+        - paragraph [ref=e26]: Enjoy a full day of relaxation with massage, facial, and access to spa facilities. Perfect for unwinding and rejuvenation.
+        - generic [ref=e27]:
+          - generic [ref=e28]: $99
+          - generic [ref=e29]: $200
+          - generic [ref=e30]: 50% OFF
+        - generic [ref=e31]:
+          - generic [ref=e32]: 14 available
+          - generic [ref=e33]: Expires 7/1/2026
+```

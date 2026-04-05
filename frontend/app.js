@@ -61,16 +61,19 @@ function initThemeToggle() {
 function setupEventListeners() {
     // Search
     document.getElementById('searchInput').addEventListener('input', (e) => {
+        saveFilterState();
         filterAndDisplayDeals();
     });
     
     // Category filter
     document.getElementById('categoryFilter').addEventListener('change', () => {
+        saveFilterState();
         filterAndDisplayDeals();
     });
     
     // Sort
     document.getElementById('sortSelect').addEventListener('change', () => {
+        saveFilterState();
         filterAndDisplayDeals();
     });
     
@@ -112,10 +115,38 @@ async function loadDeals() {
         allDeals = data.deals || [];
         filteredDeals = [...allDeals];
         
+        // Restore saved filters before displaying
+        restoreFilterState();
+        
         filterAndDisplayDeals();
     } catch (error) {
         console.error('Error loading deals:', error);
         dealsGrid.innerHTML = '<div class="error">Failed to load deals. Please try again later.</div>';
+    }
+}
+
+// Save filter state to localStorage
+function saveFilterState() {
+    const filterState = {
+        search: document.getElementById('searchInput').value,
+        category: document.getElementById('categoryFilter').value,
+        sort: document.getElementById('sortSelect').value
+    };
+    localStorage.setItem('dealFilters', JSON.stringify(filterState));
+}
+
+// Restore filter state from localStorage
+function restoreFilterState() {
+    const saved = localStorage.getItem('dealFilters');
+    if (saved) {
+        try {
+            const filterState = JSON.parse(saved);
+            document.getElementById('searchInput').value = filterState.search || '';
+            document.getElementById('categoryFilter').value = filterState.category || '';
+            document.getElementById('sortSelect').value = filterState.sort || 'newest';
+        } catch (error) {
+            console.error('Error restoring filters:', error);
+        }
     }
 }
 
@@ -142,23 +173,48 @@ function filterAndDisplayDeals() {
 
 // Sort deals
 function sortDeals(deals, sortBy) {
+    const now = new Date();
+    
+    // Separate available and unavailable deals
+    const available = deals.filter(deal => {
+        const isExpired = new Date(deal.expiresAt) < now;
+        const isSoldOut = deal.quantity === 0;
+        return !isExpired && !isSoldOut;
+    });
+    
+    const unavailable = deals.filter(deal => {
+        const isExpired = new Date(deal.expiresAt) < now;
+        const isSoldOut = deal.quantity === 0;
+        return isExpired || isSoldOut;
+    });
+    
+    // Sort available deals by selected criteria
     switch (sortBy) {
         case 'newest':
-            deals.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            available.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            unavailable.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
             break;
         case 'discount':
-            deals.sort((a, b) => b.discountPercent - a.discountPercent);
+            available.sort((a, b) => b.discountPercent - a.discountPercent);
+            unavailable.sort((a, b) => b.discountPercent - a.discountPercent);
             break;
         case 'price-low':
-            deals.sort((a, b) => a.price - b.price);
+            available.sort((a, b) => a.price - b.price);
+            unavailable.sort((a, b) => a.price - b.price);
             break;
         case 'price-high':
-            deals.sort((a, b) => b.price - a.price);
+            available.sort((a, b) => b.price - a.price);
+            unavailable.sort((a, b) => b.price - a.price);
             break;
         case 'expiring':
-            deals.sort((a, b) => new Date(a.expiresAt) - new Date(b.expiresAt));
+            available.sort((a, b) => new Date(a.expiresAt) - new Date(b.expiresAt));
+            unavailable.sort((a, b) => new Date(a.expiresAt) - new Date(b.expiresAt));
             break;
     }
+    
+    // Combine: available first, then unavailable
+    deals.length = 0;  // Clear original array
+    deals.push(...available, ...unavailable);
 }
 
 // Display deals in grid
