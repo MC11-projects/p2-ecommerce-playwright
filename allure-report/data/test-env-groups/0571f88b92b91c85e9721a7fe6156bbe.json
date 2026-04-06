@@ -1,1 +1,1 @@
-{"id":"0571f88b92b91c85e9721a7fe6156bbe","fullName":"auth-signup.spec.js:55:9","name":"User tries to signup with a short password @auth @ui","status":"passed","testResultsByEnv":{"default":"42bf4fe166a3c9a7f059af51ebfb2f04"}}
+{"id":"0571f88b92b91c85e9721a7fe6156bbe","fullName":"auth-signup.spec.js:55:9","name":"User tries to signup with a short password @auth @ui","status":"passed","testResultsByEnv":{"default":"7c9ef375d49489fe6edf0aa34fa6d902"}}

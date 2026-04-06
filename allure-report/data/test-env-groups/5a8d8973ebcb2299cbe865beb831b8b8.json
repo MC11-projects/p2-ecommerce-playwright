@@ -1,1 +1,1 @@
-{"id":"5a8d8973ebcb2299cbe865beb831b8b8","fullName":"auth-logout.spec.js:24:9","name":"Direct checkout URL redirects to login after logout @auth @ui","status":"passed","testResultsByEnv":{"default":"d25067cff62e5627ea02d0e78e3d25b7"}}
+{"id":"5a8d8973ebcb2299cbe865beb831b8b8","fullName":"auth-logout.spec.js:24:9","name":"Direct checkout URL redirects to login after logout @auth @ui","status":"passed","testResultsByEnv":{"default":"8e4298382394246c45d6c475e769b11f"}}
