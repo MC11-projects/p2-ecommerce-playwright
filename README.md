@@ -1,8 +1,8 @@
 # Portfolio Project 2: Daily Deals E-Commerce Platform
 
-Full-stack serverless e-commerce application with AWS backend and comprehensive end-to-end test automation. Features authentication, real-time deal browsing, shopping cart with quantity controls, and multi-step checkout with voucher support and form validation. Built with AWS Lambda, DynamoDB, API Gateway, Cognito for auth, and tested with Playwright using multiple test patterns (storageState, helper functions, POM).
+Full-stack serverless e-commerce application with AWS backend and comprehensive end-to-end test automation. Features authentication, real-time deal browsing, shopping cart, multi-step checkout with voucher support, and order management system. Complete infrastructure managed as code with Terraform.
 
-**Tech Stack:** JavaScript, Playwright, AWS (Lambda, DynamoDB, API Gateway, Cognito, S3, CloudFront), GitHub Actions CI/CD, Allure reporting
+**Tech Stack:** JavaScript, Playwright, AWS (Lambda, DynamoDB, API Gateway, Cognito, S3, CloudFront), Terraform, GitHub Actions CI/CD, Allure reporting
 
 **Test Coverage:** 101 tests (82 UI + 17 API + 2 setup files)
 
@@ -52,6 +52,13 @@ Full-stack serverless e-commerce application with AWS backend and comprehensive 
 - Cart clearing after successful purchase
 - Continue shopping functionality
 
+### Order Management
+- Order history page with real-time status tracking
+- Order statuses: Active, Redeemed, Expired, Failed, Refunded, Gifted
+- Voucher redemption functionality
+- Gifting system (post-purchase voucher transfer to other users)
+- Voucher validation (status checks, ownership verification)
+
 ### Search & Filtering
 - Real-time search across deal titles and descriptions
 - Category filtering (Wellness, Food, Activities, Services, Entertainment)
@@ -62,12 +69,27 @@ Full-stack serverless e-commerce application with AWS backend and comprehensive 
 - Clear search functionality
 
 ### API Integration
-- RESTful API Gateway endpoints for order creation
+- RESTful API Gateway endpoints for orders, redemption, and gifting
 - JWT-based authentication with Cognito ID tokens
 - Request payload validation (missing fields, boundary quantities)
 - Business logic validation (deal availability, stock management, expiration)
 - Voucher application and discount calculation
 - Email format validation
+
+---
+
+## Infrastructure as Code
+
+**Complete AWS infrastructure managed with Terraform:**
+- **DynamoDB** - 3 tables (Deals, Orders, Vouchers) with optimized read/write capacity
+- **IAM** - 6 least-privilege roles with granular DynamoDB permissions per Lambda function
+- **Lambda** - 8 serverless functions (deals, orders, vouchers, auth trigger)
+- **API Gateway** - Complete REST API with 11 resources, 8 methods, Cognito authorizer
+- **Cognito** - User Pool with email-based auth, password policies, Lambda triggers
+- **S3** - Frontend hosting bucket with encryption, OAC, and CloudFront integration
+- **CloudFront** - Global CDN with WAF protection, security headers, SPA routing fix
+
+**Infrastructure recovery:** Entire backend can be rebuilt from Terraform config in minutes - tested after accidental API Gateway deletion.
 
 ---
 
@@ -96,26 +118,21 @@ Full-stack serverless e-commerce application with AWS backend and comprehensive 
 
 ### Lambda Bug Fixes
 - **Email validation vulnerability** - Discovered through API testing; Lambda was accepting malformed email strings (e.g., "not-an-email"). Added regex validation to prevent bad data from reaching DynamoDB.
+- **IAM permissions error** - Found through test failures after Terraform apply; OrderManagementRole was missing `dynamodb:UpdateItem` permission for deal stock decrement during order creation.
 
 ---
 
 ## Roadmap
 
-### Current Sprint (Next Up)
-- **Order Management**
-  - Order history page with status tracking (Active, Redeemed, Expired, Failed, Refunded, Gifted)
-  - Order redemption functionality
-  - Gifting flows (checkout gift option + post-purchase transfer)
-
 ### Next Sprint
-- **Testing & Infrastructure**
-  - Performance testing (k6)
-  - Terraform for infrastructure as code
-  - Grafana dashboards (with Prometheus)
+- **Performance Testing**
+  - Load testing with k6
+  - API response time benchmarking
+  - Concurrent user simulation
 
 ### Future Enhancements
 - Email notifications via SES (order confirmation, gifting)
 - Event-driven architecture with SQS
 - Admin dashboard for order management
 - Advanced voucher system (percentage + fixed amount discounts)
-- User profile page with order history
+- Grafana dashboards with Prometheus monitoring

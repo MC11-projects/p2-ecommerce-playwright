@@ -137,3 +137,21 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Lambda function code (managed by Terraform)
+lambda-code/
+
+# Terraform sensitive files
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+
+# Playwright test artifacts
+playwright-report/
+test-results/
+.auth/
+
+# Allure reporting
+allure-results/
+allure-report/

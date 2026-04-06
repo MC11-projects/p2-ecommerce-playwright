@@ -18,8 +18,8 @@ function loadOrderDetails() {
     // Display order details
     document.getElementById('thankYouMessage').textContent = `Thank you for your purchase, ${order.customerName}!`;
     document.getElementById('orderId').textContent = order.orderId;
-    document.getElementById('customerEmail').textContent = order.customerEmail;
-    document.getElementById('confirmationEmail').textContent = order.customerEmail;
+    document.getElementById('customerEmail').textContent = order.purchasedBy;
+    document.getElementById('confirmationEmail').textContent = order.purchasedBy;
     document.getElementById('orderDate').textContent = new Date(order.createdAt).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
@@ -28,12 +28,25 @@ function loadOrderDetails() {
         minute: '2-digit'
     });
     
-    // Display order items
+    // Group vouchers by dealId for display
+    const groupedVouchers = {};
+    order.vouchers.forEach(voucher => {
+        if (!groupedVouchers[voucher.dealId]) {
+            groupedVouchers[voucher.dealId] = {
+                dealTitle: voucher.dealTitle,
+                price: voucher.price,
+                count: 0
+            };
+        }
+        groupedVouchers[voucher.dealId].count++;
+    });
+    
+    // Display order items (grouped vouchers)
     const itemsList = document.getElementById('orderItemsList');
-    itemsList.innerHTML = order.items.map(item => `
+    itemsList.innerHTML = Object.values(groupedVouchers).map(item => `
         <div class="order-details-row">
-            <span>${item.quantity}× ${item.title}</span>
-            <span>$${(item.price * item.quantity).toFixed(2)}</span>
+            <span>${item.count}× ${item.dealTitle}</span>
+            <span>$${(item.price * item.count).toFixed(2)}</span>
         </div>
     `).join('');
     

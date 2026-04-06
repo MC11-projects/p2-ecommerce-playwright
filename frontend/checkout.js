@@ -1,5 +1,5 @@
 // Configuration - API Base URL
-const API_BASE_URL = 'https://u50yoy2qad.execute-api.us-east-1.amazonaws.com/prod';
+const API_BASE_URL = 'https://s8om49pim4.execute-api.us-east-1.amazonaws.com/prod';
 
 // State
 let cart = [];

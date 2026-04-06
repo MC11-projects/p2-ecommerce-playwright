@@ -1,0 +1,298 @@
+/* Order History Page Styles */
+
+.order-history-main {
+    padding: 0 0 3rem 0;
+}
+
+/* Filters */
+.filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.filter-select {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* Vouchers Container */
+.vouchers-container {
+    display: grid;
+    gap: 1.5rem;
+}
+
+/* Voucher Card */
+.voucher-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.5rem;
+    align-items: start;
+    box-shadow: 0 2px 8px var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.voucher-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-hover);
+}
+
+.voucher-card.expired {
+    opacity: 0.6;
+}
+
+.voucher-card.redeemed {
+    opacity: 0.75;
+}
+
+/* Voucher Info */
+.voucher-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.voucher-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.voucher-code {
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #667eea;
+    background: #f0f3ff;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    display: inline-block;
+    width: fit-content;
+}
+
+[data-theme="dark"] .voucher-code {
+    background: rgba(102, 126, 234, 0.2);
+    color: #a8b3ff;
+}
+
+.voucher-price {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #667eea;
+}
+
+.voucher-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.voucher-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* Voucher Status Badge */
+.voucher-status {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.voucher-status.active {
+    background: #48bb78;
+    color: white;
+}
+
+.voucher-status.redeemed {
+    background: #a0aec0;
+    color: white;
+}
+
+.voucher-status.expired {
+    background: #e53e3e;
+    color: white;
+}
+
+.voucher-status.gifted {
+    background: #9f7aea;
+    color: white;
+}
+
+/* Voucher Actions */
+.voucher-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-width: 140px;
+}
+
+.voucher-actions button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-redeem {
+    background: #48bb78;
+    color: white;
+}
+
+.btn-redeem:hover {
+    background: #38a169;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
+}
+
+.btn-gift {
+    background: #9f7aea;
+    color: white;
+}
+
+.btn-gift:hover {
+    background: #805ad5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(159, 122, 234, 0.4);
+}
+
+.btn-details {
+    background: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.btn-details:hover {
+    background: var(--bg-tertiary);
+}
+
+.btn-rebuy {
+    background: #667eea;
+    color: white;
+}
+
+.btn-rebuy:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Modal Customizations */
+.modal-warning {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 1rem 0;
+    padding: 0.75rem;
+    background: #fef5e7;
+    border-left: 4px solid #f39c12;
+    border-radius: 6px;
+}
+
+[data-theme="dark"] .modal-warning {
+    background: rgba(243, 156, 18, 0.1);
+    color: #f39c12;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    justify-content: flex-end;
+}
+
+/* Details Modal Content */
+.details-grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.details-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.details-row:last-child {
+    border-bottom: none;
+}
+
+.details-label {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.details-value {
+    color: var(--text-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .voucher-card {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .voucher-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .voucher-actions button {
+        flex: 1;
+        min-width: 120px;
+    }
+    
+    .filters {
+        flex-direction: column;
+    }
+    
+    .filter-select {
+        width: 100%;
+    }
+    
+    .details-row {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+    }
+    
+    .modal-actions button {
+        width: 100%;
+    }
+}

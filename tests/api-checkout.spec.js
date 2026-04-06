@@ -27,8 +27,8 @@ test.describe('Checkout API tests', () => {
         expect(data).toHaveProperty('order')
         expect(data.message).toBe('Order created successfully')
         expect(data.order.orderId).toBeDefined()
-        expect(data.order.customerEmail).toBeDefined()
-        expect(data.order.items).toBeDefined()
+        expect(data.order.purchasedBy).toBeDefined()
+        expect(data.order.vouchers).toBeDefined()
         expect(data.order.status).toBeDefined()
     })
 

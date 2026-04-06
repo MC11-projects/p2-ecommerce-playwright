@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Vouchers - DailyDeals</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="order-history.css">
+</head>
+<body>
+    <div class="toast-container" id="toastContainer"></div>
+    
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" style="text-decoration: none; color: white;">
+                    <h1 class="logo">🎁 DailyDeals</h1>
+                </a>
+                <div class="header-actions">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        🌙
+                    </button>
+                    
+                    <div id="userMenu" class="user-menu" style="display: none;">
+                        <button class="user-button" id="userMenuBtn">
+                            <span>👤</span>
+                            <span id="userName">User</span>
+                        </button>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="order-history.html" class="user-dropdown-item">
+                                <span>📋</span>
+                                <span>My Vouchers</span>
+                            </a>
+                            <div class="user-dropdown-item logout" id="logoutBtn">
+                                <span>🚪</span>
+                                <span>Logout</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container order-history-main">
+        <h2 style="font-size: 2rem; margin: 2rem 0 1.5rem 0;">My Vouchers</h2>
+        
+        <div class="filters">
+            <select id="statusFilter" class="filter-select">
+                <option value="all">All Statuses</option>
+                <option value="active">Active</option>
+                <option value="redeemed">Redeemed</option>
+                <option value="expired">Expired</option>
+                <option value="gifted">Gifted</option>
+            </select>
+            
+            <select id="expiryFilter" class="filter-select">
+                <option value="all">All Dates</option>
+                <option value="expiring-soon">Expiring Soon (7 days)</option>
+                <option value="this-month">This Month</option>
+            </select>
+        </div>
+
+        <div id="loadingState" class="loading">
+            Loading your vouchers...
+        </div>
+
+        <div id="vouchersContainer" class="vouchers-container" style="display: none;">
+            <!-- Vouchers will be inserted here -->
+        </div>
+        
+        <div id="emptyState" class="empty-state" style="display: none;">
+            <div class="empty-state-icon">📭</div>
+            <p>No vouchers found</p>
+            <a href="index.html" class="btn btn-primary" style="margin-top: 1rem;">Browse Deals</a>
+        </div>
+    </main>
+
+    <!-- Redeem Confirmation Modal -->
+    <div id="redeemModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeRedeemModal">&times;</button>
+            <h3 style="margin-bottom: 1rem;">Redeem Voucher?</h3>
+            <div id="redeemModalContent"></div>
+            <p class="modal-warning">⚠️ Once redeemed, this voucher cannot be used again.</p>
+            <div class="modal-actions">
+                <button id="cancelRedeem" class="btn btn-secondary">Cancel</button>
+                <button id="confirmRedeem" class="btn btn-success">Confirm Redeem</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gift Modal -->
+    <div id="giftModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeGiftModal">&times;</button>
+            <h3 style="margin-bottom: 1rem;">Gift Voucher</h3>
+            <div id="giftModalContent"></div>
+            <div class="form-group">
+                <label for="recipientEmail">Recipient's Email</label>
+                <input type="email" id="recipientEmail" placeholder="recipient@example.com" />
+                <div id="recipientEmailError" class="field-error-message" style="display: none;"></div>
+            </div>
+            <div class="modal-actions">
+                <button id="cancelGift" class="btn btn-secondary">Cancel</button>
+                <button id="confirmGift" class="btn btn-primary">Send Gift</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Voucher Details Modal -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeDetailsModal">&times;</button>
+            <h3 style="margin-bottom: 1rem;">Voucher Details</h3>
+            <div id="detailsModalContent"></div>
+        </div>
+    </div>
+
+    <!-- Amazon Cognito Identity SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@6.3.7/dist/amazon-cognito-identity.min.js"></script>
+    
+    <!-- Theme Persistence -->
+    <script>
+        // Apply saved theme immediately (before page renders)
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+    
+    <script src="auth.js"></script>
+    <script src="order-history.js"></script>
+</body>
+</html>
