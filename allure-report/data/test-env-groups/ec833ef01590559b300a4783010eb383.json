@@ -1,1 +1,1 @@
-{"id":"ec833ef01590559b300a4783010eb383","fullName":"auth-signup.spec.js:71:9","name":"User tries to signup with an already registered email","status":"failed","testResultsByEnv":{"default":"c15964d00a2ed54e1ebc91046a6dad82"}}
+{"id":"ec833ef01590559b300a4783010eb383","fullName":"auth-signup.spec.js:56:9","name":"User tries to signup with an already registered email","status":"failed","testResultsByEnv":{"default":"5c8b8151444f62af1d642bee1194efbc"}}

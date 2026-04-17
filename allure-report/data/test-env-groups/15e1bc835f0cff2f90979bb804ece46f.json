@@ -1,1 +1,1 @@
-{"id":"15e1bc835f0cff2f90979bb804ece46f","fullName":"api-checkout.spec.js:71:9","name":"POST /orders with invalid JSON body returns 404 @api @checkout","status":"failed","testResultsByEnv":{"default":"4f5702485ebe746665e5b55bfb0f47aa"}}
+{"id":"15e1bc835f0cff2f90979bb804ece46f","fullName":"api-checkout.spec.js:71:9","name":"POST /orders with invalid JSON body returns 404 @api @checkout","status":"failed","testResultsByEnv":{"default":"35087572f92d37c81e375c48646462a7"}}

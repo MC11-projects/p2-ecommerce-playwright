@@ -1,1 +1,1 @@
-{"id":"b6f560352901e0f7b72f5cb55e009cf8","fullName":"checkout.spec.js:45:9","name":"Invalid card number validation","status":"failed","testResultsByEnv":{"default":"af590e86eefba4d3bad1af6877e82e52"}}
+{"id":"b6f560352901e0f7b72f5cb55e009cf8","fullName":"checkout.spec.js:41:9","name":"Invalid card number validation","status":"failed","testResultsByEnv":{"default":"4dc916a536369cb1a49b1139c5f7df3d"}}
