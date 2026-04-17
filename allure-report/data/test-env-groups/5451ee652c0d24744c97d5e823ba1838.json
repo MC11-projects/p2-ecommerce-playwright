@@ -1,1 +1,1 @@
-{"id":"5451ee652c0d24744c97d5e823ba1838","fullName":".auth/api.setup.js:7:6","name":"Extract API token","status":"failed","testResultsByEnv":{"default":"cf3511921b10f15b1a89ba2ee72f02e0"}}
+{"id":"5451ee652c0d24744c97d5e823ba1838","fullName":".auth/api.setup.js:8:6","name":"Extract API token","status":"failed","testResultsByEnv":{"default":"cf3511921b10f15b1a89ba2ee72f02e0"}}
