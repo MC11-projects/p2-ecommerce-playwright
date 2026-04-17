@@ -48,7 +48,7 @@ export default defineConfig({
 
     {
       name: 'setup',
-      testMatch: /.*\.setup\.js/,
+      testMatch: '**/*.setup.js'
     },
 
     {
