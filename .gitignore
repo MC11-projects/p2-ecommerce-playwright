@@ -155,3 +155,15 @@ test-results/
 # Allure reporting
 allure-results/
 allure-report/
+
+api-token.json
+user.json
+
+# Test data with credentials
+**/tokens/*.json
+**/auth/*.json
+
+# Environment files
+.env
+.env.local
+.env.test

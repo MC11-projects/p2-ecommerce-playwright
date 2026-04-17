@@ -4,6 +4,23 @@
     padding: 0 0 3rem 0;
 }
 
+/* Empty State Fix */
+.order-history-main .empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.order-history-main .empty-state .empty-state-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+}
+
+.order-history-main .empty-state p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
 /* Filters */
 .filters {
     display: flex;
@@ -68,6 +85,15 @@
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+}
+
+.voucher-image {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
 }
 
 .voucher-title {
@@ -263,6 +289,10 @@
     .voucher-card {
         grid-template-columns: 1fr;
         gap: 1rem;
+    }
+    
+    .voucher-image {
+        max-width: 120px;
     }
     
     .voucher-actions {

@@ -481,8 +481,18 @@ async function submitOrder(event) {
         }
         
         if (response.ok) {
+            // Enrich order vouchers with imageUrl from cart items
+            const enrichedOrder = { ...data.order };
+            enrichedOrder.vouchers = enrichedOrder.vouchers.map(voucher => {
+                const cartItem = cart.find(item => item.dealId === voucher.dealId);
+                return {
+                    ...voucher,
+                    imageUrl: cartItem ? cartItem.imageUrl : ''
+                };
+            });
+            
             // Save order to localStorage for confirmation page
-            localStorage.setItem('lastOrder', JSON.stringify(data.order));
+            localStorage.setItem('lastOrder', JSON.stringify(enrichedOrder));
             
             // Clear cart and voucher
             localStorage.removeItem('cart');

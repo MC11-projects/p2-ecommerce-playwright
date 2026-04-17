@@ -119,6 +119,18 @@ async function loadDeals() {
         restoreFilterState();
         
         filterAndDisplayDeals();
+        
+        // Check if we should open a specific deal modal (from re-buy button)
+        const urlParams = new URLSearchParams(window.location.search);
+        const dealId = urlParams.get('dealId');
+        if (dealId) {
+            const deal = allDeals.find(d => d.dealId === dealId);
+            if (deal) {
+                openDealModal(deal);
+            }
+            // Clean URL after opening modal
+            window.history.replaceState({}, '', 'index.html');
+        }
     } catch (error) {
         console.error('Error loading deals:', error);
         dealsGrid.innerHTML = '<div class="error">Failed to load deals. Please try again later.</div>';

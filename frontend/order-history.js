@@ -116,24 +116,42 @@ async function loadVouchers() {
         document.getElementById('vouchersContainer').style.display = 'none';
         document.getElementById('emptyState').style.display = 'none';
         
-        const response = await fetch(`${API_BASE_URL}/orders`, {
+        // Fetch vouchers
+        const vouchersResponse = await fetch(`${API_BASE_URL}/orders`, {
             headers: {
                 'Authorization': auth.getIdToken()
             }
         });
         
-        if (!response.ok) {
+        if (!vouchersResponse.ok) {
             throw new Error('Failed to load vouchers');
         }
         
-        const data = await response.json();
+        const vouchersData = await vouchersResponse.json();
+        
+        // Fetch deals to get imageUrl
+        const dealsResponse = await fetch(`${API_BASE_URL}/deals`);
+        const dealsData = await dealsResponse.json();
+        const deals = dealsData.deals || [];
+        
+        // Create a map of dealId -> deal for quick lookup
+        const dealsMap = {};
+        deals.forEach(deal => {
+            dealsMap[deal.dealId] = deal;
+        });
         
         // Flatten all vouchers from all orders
         allVouchers = [];
-        data.orders.forEach(order => {
+        vouchersData.orders.forEach(order => {
             order.vouchers.forEach(voucher => {
                 // Store orderId with voucher for API calls
                 voucher.orderId = order.orderId;
+                
+                // Enrich with imageUrl from deals
+                const deal = dealsMap[voucher.dealId];
+                if (deal) {
+                    voucher.imageUrl = deal.imageUrl;
+                }
                 
                 // Check if expired
                 const now = new Date();
@@ -230,11 +248,12 @@ function createVoucherCard(voucher) {
     // Determine which buttons to show
     const showRedeem = voucher.status === 'active';
     const showGift = voucher.status === 'active';
-    const showRebuy = voucher.status === 'redeemed' || voucher.status === 'expired';
+    const showRebuy = voucher.status === 'redeemed' || voucher.status === 'expired' || voucher.status === 'gifted';
     
     return `
         <div class="voucher-card ${voucher.status}">
             <div class="voucher-info">
+                ${voucher.imageUrl ? `<img src="${voucher.imageUrl}" alt="${voucher.dealTitle}" class="voucher-image">` : ''}
                 <div>
                     <div class="voucher-title">${voucher.dealTitle}</div>
                     <span class="voucher-status ${voucher.status}">${voucher.status}</span>
@@ -288,6 +307,7 @@ function openRedeemModal(voucherId) {
     if (!selectedVoucher) return;
     
     document.getElementById('redeemModalContent').innerHTML = `
+        ${selectedVoucher.imageUrl ? `<img src="${selectedVoucher.imageUrl}" alt="${selectedVoucher.dealTitle}" class="voucher-image" style="margin-bottom: 1rem;">` : ''}
         <p><strong>${selectedVoucher.dealTitle}</strong></p>
         <p>Code: <span class="voucher-code">${selectedVoucher.voucherCode}</span></p>
         <p>Value: <strong>$${selectedVoucher.price.toFixed(2)}</strong></p>
@@ -337,6 +357,7 @@ function openGiftModal(voucherId) {
     if (!selectedVoucher) return;
     
     document.getElementById('giftModalContent').innerHTML = `
+        ${selectedVoucher.imageUrl ? `<img src="${selectedVoucher.imageUrl}" alt="${selectedVoucher.dealTitle}" class="voucher-image" style="margin-bottom: 1rem;">` : ''}
         <p><strong>${selectedVoucher.dealTitle}</strong></p>
         <p>Code: <span class="voucher-code">${selectedVoucher.voucherCode}</span></p>
         <p>Value: <strong>$${selectedVoucher.price.toFixed(2)}</strong></p>
@@ -417,6 +438,7 @@ function openDetailsModal(voucherId) {
     });
     
     let detailsHTML = `
+        ${voucher.imageUrl ? `<img src="${voucher.imageUrl}" alt="${voucher.dealTitle}" class="voucher-image" style="margin-bottom: 1.5rem;">` : ''}
         <div class="details-grid">
             <div class="details-row">
                 <div class="details-label">Deal</div>

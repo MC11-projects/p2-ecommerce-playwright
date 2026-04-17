@@ -14,7 +14,7 @@ export class ConfirmationPage {
         this.orderDiscountRow = page.locator('#discountRow')
         this.orderDiscountAmount = page.locator('#orderDiscount')
         this.confirmationEmailText = page.locator('.confirmation-page p').filter({ hasText: 'confirmation email' })
-        this.continueShoppingButton = page.locator('.confirmation-actions')
+        this.continueShoppingButton = page.getByText('Continue Shopping')
         this.headerHomeButton = page.locator('.logo')
     }
 
