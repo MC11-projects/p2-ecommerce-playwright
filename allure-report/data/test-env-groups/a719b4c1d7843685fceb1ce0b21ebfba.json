@@ -1,1 +1,1 @@
-{"id":"a719b4c1d7843685fceb1ce0b21ebfba","fullName":"checkout.spec.js:69:9","name":"Invalid CVV @checkout @ui","status":"failed","testResultsByEnv":{"default":"7262d11966417c850b625c831866d7bd"}}
+{"id":"a719b4c1d7843685fceb1ce0b21ebfba","fullName":"checkout.spec.js:69:9","name":"Invalid CVV @checkout @ui","status":"passed","testResultsByEnv":{"default":"7262d11966417c850b625c831866d7bd"}}

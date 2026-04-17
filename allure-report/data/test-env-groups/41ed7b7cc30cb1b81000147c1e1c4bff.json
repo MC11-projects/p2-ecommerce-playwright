@@ -1,1 +1,1 @@
-{"id":"41ed7b7cc30cb1b81000147c1e1c4bff","fullName":"checkout.spec.js:81:9","name":"Applying valid voucher code @checkout @vouchers @ui","status":"failed","testResultsByEnv":{"default":"9ea94c0c94208bd910a0e04df0b421ee"}}
+{"id":"41ed7b7cc30cb1b81000147c1e1c4bff","fullName":"checkout.spec.js:81:9","name":"Applying valid voucher code @checkout @vouchers @ui","status":"passed","testResultsByEnv":{"default":"9ea94c0c94208bd910a0e04df0b421ee"}}

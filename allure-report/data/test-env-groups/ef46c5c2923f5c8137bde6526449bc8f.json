@@ -1,1 +1,1 @@
-{"id":"ef46c5c2923f5c8137bde6526449bc8f","fullName":"cart.spec.js:86:9","name":"User can remove items and see empty cart state @cart @ui","status":"failed","testResultsByEnv":{"default":"a01273a361b8b7fa7249baccdf2e2886"}}
+{"id":"ef46c5c2923f5c8137bde6526449bc8f","fullName":"cart.spec.js:86:9","name":"User can remove items and see empty cart state @cart @ui","status":"passed","testResultsByEnv":{"default":"a1d904a4f1db21984a195065d5e99600"}}

@@ -1,1 +1,1 @@
-{"id":"1af6b11b8a24aba8a592b1657bee5fcb","fullName":"api-checkout.spec.js:233:9","name":"POST /orders without voucher has no discount @api @checkout @voucher","status":"failed","testResultsByEnv":{"default":"0b08a0ca28b929c555d63190f53376d7"}}
+{"id":"1af6b11b8a24aba8a592b1657bee5fcb","fullName":"api-checkout.spec.js:233:9","name":"POST /orders without voucher has no discount @api @checkout @voucher","status":"failed","testResultsByEnv":{"default":"3fd9e04582a6b10254b16aba0177da12"}}

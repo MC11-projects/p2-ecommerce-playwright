@@ -1,1 +1,1 @@
-{"id":"01f13b4262a4c5ad9a7dfaac699ba5ea","fullName":"confirmation.spec.js:98:9","name":"Back button from confirmation redirects to home @confirmation @ui","status":"failed","testResultsByEnv":{"default":"5429c5068d4e9ddbc56746d613769edc"}}
+{"id":"01f13b4262a4c5ad9a7dfaac699ba5ea","fullName":"confirmation.spec.js:98:9","name":"Back button from confirmation redirects to home @confirmation @ui","status":"passed","testResultsByEnv":{"default":"3b5f8bd60762511d0679da87ba78c55f"}}

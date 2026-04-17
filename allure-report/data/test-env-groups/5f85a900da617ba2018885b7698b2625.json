@@ -1,1 +1,1 @@
-{"id":"5f85a900da617ba2018885b7698b2625","fullName":"deals.spec.js:141:9","name":"Verify deal-004 is sold out in API","status":"failed","testResultsByEnv":{"default":"175dcab2356deb3e83b18e957cbee589"}}
+{"id":"5f85a900da617ba2018885b7698b2625","fullName":"deals.spec.js:141:9","name":"Verify deal-004 is sold out in API","status":"passed","testResultsByEnv":{"default":"175dcab2356deb3e83b18e957cbee589"}}

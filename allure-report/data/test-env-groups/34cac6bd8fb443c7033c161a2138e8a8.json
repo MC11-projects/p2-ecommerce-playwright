@@ -1,1 +1,1 @@
-{"id":"34cac6bd8fb443c7033c161a2138e8a8","fullName":"checkout.spec.js:96:9","name":"Applying expired voucher code @checkout @vouchers @ui","status":"failed","testResultsByEnv":{"default":"2e7a7cccbe0be65900988f1cd1fba63a"}}
+{"id":"34cac6bd8fb443c7033c161a2138e8a8","fullName":"checkout.spec.js:96:9","name":"Applying expired voucher code @checkout @vouchers @ui","status":"passed","testResultsByEnv":{"default":"2e7a7cccbe0be65900988f1cd1fba63a"}}

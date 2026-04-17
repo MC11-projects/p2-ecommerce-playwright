@@ -1,1 +1,1 @@
-{"id":"d38e93bf7b436009c58fe5affd37a63d","fullName":"checkout.spec.js:122:9","name":"Cart persists after back button @checkout @ui","status":"failed","testResultsByEnv":{"default":"77cbd1a36c9f3c075f8921a790640744"}}
+{"id":"d38e93bf7b436009c58fe5affd37a63d","fullName":"checkout.spec.js:122:9","name":"Cart persists after back button @checkout @ui","status":"passed","testResultsByEnv":{"default":"21b99aa614417b762d2cc438f061a076"}}

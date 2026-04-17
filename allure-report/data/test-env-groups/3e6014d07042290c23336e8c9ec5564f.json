@@ -1,1 +1,1 @@
-{"id":"3e6014d07042290c23336e8c9ec5564f","fullName":"checkout.spec.js:57:9","name":"Expired card usage @checkout @ui","status":"failed","testResultsByEnv":{"default":"32428273b03d4a96e9f1f6d4fcbf1e23"}}
+{"id":"3e6014d07042290c23336e8c9ec5564f","fullName":"checkout.spec.js:57:9","name":"Expired card usage @checkout @ui","status":"passed","testResultsByEnv":{"default":"b29ebbf2dd2679d833d1c259d39cfbe6"}}
