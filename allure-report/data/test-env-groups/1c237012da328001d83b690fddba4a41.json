@@ -1,1 +1,1 @@
-{"id":"1c237012da328001d83b690fddba4a41","fullName":"deals.spec.js:65:9","name":"Add to cart @smoke @deals @ui","status":"passed","testResultsByEnv":{"default":"976859b6e386faa189c58f6086b74f95"}}
+{"id":"1c237012da328001d83b690fddba4a41","fullName":"deals.spec.js:65:9","name":"Add to cart @smoke @deals @ui","status":"failed","testResultsByEnv":{"default":"77dfba7196da620a1f93dff25547435b"}}

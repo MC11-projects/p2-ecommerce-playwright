@@ -1,1 +1,1 @@
-{"id":"fcf850f71536c2110e04130b53d74a81","fullName":"checkout.spec.js:28:9","name":"Required field validation @checkout @ui","status":"passed","testResultsByEnv":{"default":"b40af1d8ca30c9873de6080629c03197"}}
+{"id":"fcf850f71536c2110e04130b53d74a81","fullName":"checkout.spec.js:28:9","name":"Required field validation @checkout @ui","status":"failed","testResultsByEnv":{"default":"77dedb1d386e3fdf3950c64ce5de210b"}}

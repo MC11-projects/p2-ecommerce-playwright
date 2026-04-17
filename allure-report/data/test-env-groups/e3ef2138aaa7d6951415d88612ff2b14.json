@@ -1,1 +1,1 @@
-{"id":"e3ef2138aaa7d6951415d88612ff2b14","fullName":"checkout.spec.js:145:9","name":"Negative balance check via voucher @checkout @vouchers @ui","status":"passed","testResultsByEnv":{"default":"eef836dd7b7fb37aba4392c6e70c9edf"}}
+{"id":"e3ef2138aaa7d6951415d88612ff2b14","fullName":"checkout.spec.js:145:9","name":"Negative balance check via voucher @checkout @vouchers @ui","status":"failed","testResultsByEnv":{"default":"eef836dd7b7fb37aba4392c6e70c9edf"}}

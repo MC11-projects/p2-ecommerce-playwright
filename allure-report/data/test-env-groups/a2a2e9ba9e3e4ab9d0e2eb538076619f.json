@@ -1,1 +1,1 @@
-{"id":"a2a2e9ba9e3e4ab9d0e2eb538076619f","fullName":"checkout.spec.js:155:9","name":"Voucher check upon deal removal from checkout @checkout @vouchers @ui @slow","status":"passed","testResultsByEnv":{"default":"9167c06edfcf8796d3214d7267bc2298"}}
+{"id":"a2a2e9ba9e3e4ab9d0e2eb538076619f","fullName":"checkout.spec.js:155:9","name":"Voucher check upon deal removal from checkout @checkout @vouchers @ui @slow","status":"failed","testResultsByEnv":{"default":"c31650349f05ccb6d40dab6a8d38612b"}}

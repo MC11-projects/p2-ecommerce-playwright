@@ -1,1 +1,1 @@
-{"id":"793f88b2d6cc6fa744596de7b58f5a8e","fullName":"checkout.spec.js:135:9","name":"Remove item from checkout @checkout @ui","status":"passed","testResultsByEnv":{"default":"3c13437d31e144fdea8063298b835978"}}
+{"id":"793f88b2d6cc6fa744596de7b58f5a8e","fullName":"checkout.spec.js:135:9","name":"Remove item from checkout @checkout @ui","status":"failed","testResultsByEnv":{"default":"046d191dc51e52e91a84428e1a6c5db1"}}

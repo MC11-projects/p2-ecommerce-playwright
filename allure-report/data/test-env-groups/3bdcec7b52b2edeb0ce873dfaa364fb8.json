@@ -1,1 +1,1 @@
-{"id":"3bdcec7b52b2edeb0ce873dfaa364fb8","fullName":"cart.spec.js:106:9","name":"Quantity cannot go below 1 @cart @ui","status":"passed","testResultsByEnv":{"default":"bc74c131273a8ac7188272903698a7db"}}
+{"id":"3bdcec7b52b2edeb0ce873dfaa364fb8","fullName":"cart.spec.js:106:9","name":"Quantity cannot go below 1 @cart @ui","status":"failed","testResultsByEnv":{"default":"fc4622444b6487343f178aa8e7ffa031"}}

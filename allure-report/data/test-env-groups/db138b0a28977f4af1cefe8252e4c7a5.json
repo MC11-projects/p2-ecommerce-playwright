@@ -1,1 +1,1 @@
-{"id":"db138b0a28977f4af1cefe8252e4c7a5","fullName":"order-history.spec.js:15:9","name":"Order History page displays filters and vouchers after purchase","status":"skipped","testResultsByEnv":{"default":"da307a9226e55940e625630102ab746d"}}
+{"id":"db138b0a28977f4af1cefe8252e4c7a5","fullName":"order-history.spec.js:15:9","name":"Order History page displays filters and vouchers after purchase","status":"failed","testResultsByEnv":{"default":"1b52b61cd6a3be7103bb72467b1fe121"}}

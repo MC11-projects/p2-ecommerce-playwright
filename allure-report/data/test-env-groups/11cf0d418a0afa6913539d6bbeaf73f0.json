@@ -1,1 +1,1 @@
-{"id":"11cf0d418a0afa6913539d6bbeaf73f0","fullName":"api-checkout.spec.js:253:10","name":"POST /orders with valid voucher but with an incorrect token returns 401 @api @checkout @security","status":"failed","testResultsByEnv":{"default":"c28af053960d43d8e6b3fc8be8950a29"}}
+{"id":"11cf0d418a0afa6913539d6bbeaf73f0","fullName":"api-checkout.spec.js:253:10","name":"POST /orders with valid voucher but with an incorrect token returns 401 @api @checkout @security","status":"failed","testResultsByEnv":{"default":"26a0b7e494f89404d43840ec65615704"}}

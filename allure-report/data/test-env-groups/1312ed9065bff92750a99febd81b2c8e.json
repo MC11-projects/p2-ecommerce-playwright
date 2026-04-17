@@ -1,1 +1,1 @@
-{"id":"1312ed9065bff92750a99febd81b2c8e","fullName":"filters.spec.js:14:9","name":"Search returns matching results @ui @smoke @filters","status":"passed","testResultsByEnv":{"default":"231e933b1cbbd02dcb33c74d5ea04d9a"}}
+{"id":"1312ed9065bff92750a99febd81b2c8e","fullName":"filters.spec.js:14:9","name":"Search returns matching results @ui @smoke @filters","status":"failed","testResultsByEnv":{"default":"231e933b1cbbd02dcb33c74d5ea04d9a"}}

@@ -1,1 +1,1 @@
-{"id":"07974d867841afe4de75421df3d580b6","fullName":"cart.spec.js:39:9","name":"User can close the cart modal @cart @ui","status":"passed","testResultsByEnv":{"default":"9089580ade0b9d93ac00109a591a7805"}}
+{"id":"07974d867841afe4de75421df3d580b6","fullName":"cart.spec.js:39:9","name":"User can close the cart modal @cart @ui","status":"failed","testResultsByEnv":{"default":"71a279320c010936cd241ad92f5cbdc5"}}

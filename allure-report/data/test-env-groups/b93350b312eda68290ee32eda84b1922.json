@@ -1,1 +1,1 @@
-{"id":"b93350b312eda68290ee32eda84b1922","fullName":"auth-signup.spec.js:63:9","name":"User tries to signup with a weak password @auth @ui","status":"passed","testResultsByEnv":{"default":"0972abf48c5473ff043b0d465d3bfe34"}}
+{"id":"b93350b312eda68290ee32eda84b1922","fullName":"auth-signup.spec.js:63:9","name":"User tries to signup with a weak password @auth @ui","status":"passed","testResultsByEnv":{"default":"58f9b9fcf69f431483ccc2418ba96dea"}}

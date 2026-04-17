@@ -1,1 +1,1 @@
-{"id":"e72affa311b43de98cf2b962d8f3c6f9","fullName":"cart.spec.js:95:9","name":"Quantity cannot exceed the maximum limit of 10 @cart @ui","status":"passed","testResultsByEnv":{"default":"777d4870d4e45e968c88d61eda98d3c1"}}
+{"id":"e72affa311b43de98cf2b962d8f3c6f9","fullName":"cart.spec.js:95:9","name":"Quantity cannot exceed the maximum limit of 10 @cart @ui","status":"failed","testResultsByEnv":{"default":"243fe875f0c9805a10b89be150e0973c"}}

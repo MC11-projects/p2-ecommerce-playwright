@@ -1,1 +1,1 @@
-{"id":"e26116a2b20eb52d75c0db1ce4bead36","fullName":"deals.spec.js:86:9","name":"Sold out deal @deals @ui","status":"passed","testResultsByEnv":{"default":"85b41ef28b35c62233ad552fa8b22203"}}
+{"id":"e26116a2b20eb52d75c0db1ce4bead36","fullName":"deals.spec.js:86:9","name":"Sold out deal @deals @ui","status":"failed","testResultsByEnv":{"default":"972a08f8b44c02553e84e5dfb35b7965"}}

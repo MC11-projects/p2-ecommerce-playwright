@@ -1,1 +1,1 @@
-{"id":"0c5558923dea90a6830f33d5e8dc3fa9","fullName":"filters.spec.js:199:9","name":"Search with special characters shows empty state @ui @smoke @filters","status":"passed","testResultsByEnv":{"default":"6154ebf8550a4c89657fe6e889f74d54"}}
+{"id":"0c5558923dea90a6830f33d5e8dc3fa9","fullName":"filters.spec.js:199:9","name":"Search with special characters shows empty state @ui @smoke @filters","status":"failed","testResultsByEnv":{"default":"6154ebf8550a4c89657fe6e889f74d54"}}

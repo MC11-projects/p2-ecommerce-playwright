@@ -1,1 +1,1 @@
-{"id":"5abfc9a543d9143c992f0eb1b6176acc","fullName":"cart.spec.js:50:9","name":"User can update quantity of deals in cart @cart @ui","status":"passed","testResultsByEnv":{"default":"02df08d4cb055fbbf42a9744d80438fa"}}
+{"id":"5abfc9a543d9143c992f0eb1b6176acc","fullName":"cart.spec.js:50:9","name":"User can update quantity of deals in cart @cart @ui","status":"failed","testResultsByEnv":{"default":"6d298595141b4637fa953a97ec804f6d"}}

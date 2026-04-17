@@ -1,1 +1,1 @@
-{"id":"4bab1ec0d250fc7a1ea276c190712256","fullName":"auth-logout.spec.js:15:9","name":"User can logout and login again @smoke @auth @ui","status":"passed","testResultsByEnv":{"default":"45f2000d3d3998e59b095443be4290d3"}}
+{"id":"4bab1ec0d250fc7a1ea276c190712256","fullName":"auth-logout.spec.js:15:9","name":"User can logout and login again @smoke @auth @ui","status":"failed","testResultsByEnv":{"default":"45f2000d3d3998e59b095443be4290d3"}}

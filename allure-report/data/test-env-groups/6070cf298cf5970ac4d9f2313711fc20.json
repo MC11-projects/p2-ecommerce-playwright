@@ -1,1 +1,1 @@
-{"id":"6070cf298cf5970ac4d9f2313711fc20","fullName":"cart.spec.js:68:9","name":"Cart totals updates when quantity changes @cart @ui","status":"passed","testResultsByEnv":{"default":"78320028c069b89f4e98e264372b0eca"}}
+{"id":"6070cf298cf5970ac4d9f2313711fc20","fullName":"cart.spec.js:68:9","name":"Cart totals updates when quantity changes @cart @ui","status":"failed","testResultsByEnv":{"default":"7c2d7e6a7e11e0f5cb348610dc57e279"}}
