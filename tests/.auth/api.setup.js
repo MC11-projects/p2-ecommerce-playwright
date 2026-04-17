@@ -11,13 +11,6 @@ setup('Extract API token', async () => {
         fs.mkdirSync(authDir, { recursive: true })
     }
 
-    if (!fs.existsSync(authFile)) {
-        throw new Error(
-            `Auth file not found at ${authFile}. ` +
-            'Please run the authentication setup first.'
-        )
-    }
-
     const file = fs.readFileSync(authFile, 'utf-8')
     const structure = JSON.parse(file)
     
